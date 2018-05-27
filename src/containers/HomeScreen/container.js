@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import HomeScreen from './index';
 import {changeName} from './actions'
+import {fetchDeptPrice} from './operations';
 
 class HomeContainer extends Component<{}> {
     constructor(props) {
@@ -19,6 +20,7 @@ class HomeContainer extends Component<{}> {
                 changeName={changeName}
                 text={this.props.homeReducer.text}
                 dispatcher={this.props.dispatch}
+                fetchDeptPrice={fetchDeptPrice}
             />
         );
 

@@ -12,7 +12,10 @@ export default class HomeScreen extends Component<{}> {
             <View>
                 <Button
                     title="say hello"
-                    onPress={() => {this.props.dispatcher(this.props.changeName("Amish"))}}
+                    onPress={() => {
+                        this.props.dispatcher(this.props.changeName("Amish"));
+                        alert(this.props.fetchDeptPrice('Amish'));
+                    }}
                 />
                 <Text>Hello, {this.props.text} -Android</Text>
             </View>
