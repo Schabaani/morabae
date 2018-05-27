@@ -3,7 +3,7 @@ import {Router, Scene} from "react-native-router-flux";
 import {connect, Provider} from 'react-redux';
 import configureStore from './src/store/index';
 import {PersistGate} from "redux-persist/lib/integration/react";
-import HomeContainer from './src/containers/HomeScreen/container'
+import HomeContainer from './src/routes/home/container'
 import {View} from 'react-native';
 
 

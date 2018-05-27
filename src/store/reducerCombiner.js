@@ -1,4 +1,4 @@
-import homeReducer from '../containers/HomeScreen/reducer';
+import homeReducer from '../routes/home/reducer';
 // ... other reducers
 
 export default {
