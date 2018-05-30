@@ -1,6 +1,6 @@
 import {changeName} from './actions'
 
-export function changeNameAfter5Seconds(text) {
+export function changeNameAfterOneSeconds(text) {
     // We return a function instead of an action object
     return (dispatch) => {
         setTimeout(() => {

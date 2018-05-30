@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import HomeScreen from './index';
 import {changeName, changeReducer} from './actions'
 import {fetchDeptPrice} from './operations';
-import {changeNameAfter5Seconds} from './actionsRunner';
+import {changeNameAfterOneSeconds} from './actionsRunner';
 
 class HomeContainer extends Component<{}> {
     constructor(props) {
@@ -19,7 +19,7 @@ class HomeContainer extends Component<{}> {
         return (
             <HomeScreen
                 name={"Amir"}
-                changeName={this.props.fetchDataAfter5Second}
+                changeName={this.props.changeNameAfterOneSecond}
                 text={this.props.text}
                 dispatcher={this.props.dispatch}
                 fetchDeptPrice={fetchDeptPrice}
@@ -57,7 +57,7 @@ The defined method `addTodo` can be called in the scope of the components props.
 */
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchDataAfter5Second: (text) => dispatch(changeNameAfter5Seconds(text))
+        changeNameAfterOneSecond: (text) => dispatch(changeNameAfterOneSeconds(text))
     };
 };
 
