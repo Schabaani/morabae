@@ -8,13 +8,21 @@ export default class HomeScreen extends Component<{}> {
     }
 
     render(){
+        var RandomNumber = Math.floor(Math.random() * 100) + 1 ;
         return (
             <View>
                 <Button
-                    title="say hello"
+                    title={"say hello to " + this.props.name}
                     onPress={() => {
-                        this.props.dispatcher(this.props.changeName("Amish"));
-                        alert(this.props.fetchDeptPrice('Amish'));
+                        // this.props.dispatcher(this.props.changeName("Amish"));
+                        this.props.changeName("Amish number is: "+ RandomNumber);
+                        // alert(this.props.fetchDeptPrice('Amish'));
+                    }}
+                />
+                <Button
+                    title="change reducer"
+                    onPress={() => {
+                        this.props.dispatcher(this.props.changeReducer("home hastam"));
                     }}
                 />
                 <Text>Hello, {this.props.text} -Android</Text>

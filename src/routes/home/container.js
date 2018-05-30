@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import HomeScreen from './index';
-import {changeName} from './actions'
+import {changeName, changeReducer} from './actions'
 import {fetchDeptPrice} from './operations';
+import {changeNameAfter5Seconds} from './actionsRunner';
 
 class HomeContainer extends Component<{}> {
     constructor(props) {
@@ -17,10 +18,12 @@ class HomeContainer extends Component<{}> {
     render() {
         return (
             <HomeScreen
-                changeName={changeName}
-                text={this.props.homeReducer.text}
+                name={"Amir"}
+                changeName={this.props.fetchDataAfter5Second}
+                text={this.props.text}
                 dispatcher={this.props.dispatch}
                 fetchDeptPrice={fetchDeptPrice}
+                changeReducer={changeReducer}
             />
         );
 
@@ -40,28 +43,26 @@ define dispatch methods in propTypes so that they are validated.
 map state to props
 state is your redux-store object
 */
-const mapStateToProps = state => ({
-    text: state.text,
-});
+const mapStateToProps = (state) => {
+    return {
+        text: state.homeReducer.text,
+
+    };
+};
+
 
 /*
 connect dispatch to props so that you can call the methods from the active props scope.
 The defined method `addTodo` can be called in the scope of the components props.
 */
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         addTodo: dispatch(addTodo)
-//     };
-// };
-const mapDispatchToProps = dispatch => ({
-    addTodo: text => {
-        // dispatch(addTodo(text));
-        dispatch(() => changeName(text));
-    },
-});
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchDataAfter5Second: (text) => dispatch(changeNameAfter5Seconds(text))
+    };
+};
 
 /* clean way of setting up the connect. */
-// export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
-export default connect(({homeReducer}) => {
-    return {homeReducer}
-})(HomeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+// export default connect(({homeReducer}) => {
+//     return {...homeReducer}
+// })(HomeContainer);
