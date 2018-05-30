@@ -6,7 +6,9 @@ You only need to clone it and enjoy it.
 
 Each route has a directory and each directory has it's on:
 
-reducer, actions, layout(android and ios + styles), operations, and container.
+reducer, actions, actionsRunner,layout(android and ios + styles), operations, and container.
+
+<B>actionsRunner is a file async dispaches.</B>
 
 This repo uses:
 
@@ -22,4 +24,6 @@ This repo uses:
     
     "redux-logger": "^3.0.6",
     
-    "redux-persist": "^5.9.1"
+    "redux-persist": "^5.9.1",
+    
+    "redux-thunk": "^2.3.0"
