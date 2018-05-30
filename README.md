@@ -6,9 +6,9 @@ You only need to clone it and enjoy it.
 
 Each route has a directory and each directory has it's on:
 
-reducer, actions, actionsRunner,layout(android and ios + styles), operations, and container.
+reducer, actions, actionsRunner, layout(android and ios + styles), operations(some logics), and container(smart component).
 
-<B>actionsRunner is a file async dispaches.</B>
+<B>actionsRunner is a file for async dispaches and run multi actions.</B>
 
 This repo uses:
 
