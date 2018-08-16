@@ -1,7 +1,7 @@
 # trade-game-core
 A simple game
 
-This repo uses:
+This repo is based on [redux-boiler-structure](https://github.com/Schabaani/redux-boiler-structure) and using:
 
     "react": "16.3.1",
 
