@@ -1,9 +1,7 @@
-import homeReducer from '../routes/home/reducer';
-import anotherReducer from '../routes/home/anotherReducer';
+import boardReducer from '../routes/board/reducer';
 // ... other reducers
 
 export default {
-    homeReducer,
-    anotherReducer,
+    boardReducer,
     // ... other reducers
 };

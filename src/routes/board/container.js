@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import HomeScreen from './index';
+import BoardScreen from './index';
 import {changeName, changeReducer} from './actions'
-import {fetchDeptPrice} from './operations';
 import {changeNameAfterOneSeconds} from './actionsRunner';
 
-class HomeContainer extends Component<{}> {
+class BoardContainer extends Component<{}> {
+    static navigationOptions = {
+        header: null,
+    };
+
     constructor(props) {
         super(props);
         const {text} = props;
@@ -17,13 +20,8 @@ class HomeContainer extends Component<{}> {
 
     render() {
         return (
-            <HomeScreen
-                name={"Amir"}
+            <BoardScreen
                 changeName={this.props.changeNameAfterOneSecond}
-                text={this.props.text}
-                dispatcher={this.props.dispatch}
-                fetchDeptPrice={fetchDeptPrice}
-                changeReducer={changeReducer}
             />
         );
 
@@ -45,8 +43,9 @@ state is your redux-store object
 */
 const mapStateToProps = (state) => {
     return {
-        text: state.homeReducer.text,
-
+        text: state.boardReducer.text,
+        level: state.boardReducer.level,
+        gameCells: state.boardReducer.gameCells,
     };
 };
 
@@ -62,7 +61,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 /* clean way of setting up the connect. */
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardContainer);
 // export default connect(({homeReducer}) => {
 //     return {...homeReducer}
 // })(HomeContainer);
