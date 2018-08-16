@@ -1,14 +1,5 @@
-# redux-boiler-structure
-A simple file tree and a boiler for redux projects
-
-Creating a react native project with redux and suitable file tree is time consuming. So in this repository, everything is packed.
-You only need to clone it and enjoy it.
-
-Each route has a directory and each directory has it's on:
-
-reducer, actions, actionsRunner, layout(android and ios + styles), operations(some logics), and container(smart component).
-
-<B>actionsRunner is a file for async dispaches and run multi actions.</B>
+# trade-game-core
+A simple game
 
 This repo uses:
 
