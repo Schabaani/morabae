@@ -55,6 +55,10 @@ class BoardContainer extends Component<{}> {
     }
 
     play(row, col){
+        if(!this.state.gameCells.includes(parseInt(row + '' + col))){
+            alert('select another one');
+            return;
+        }
         const can = this.canHaveAnotherMove(row, col)
         // TODO revert it 
         if(!can){
