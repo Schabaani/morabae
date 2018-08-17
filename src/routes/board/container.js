@@ -3,9 +3,10 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import BoardScreen from './index';
 import {changeLevel} from './actions'
-import {changeLevelDispatcher} from './actionsRunner';
-import {generateGameCellsByLevel} from './operations';
-import {clone} from '../../components/helpers/utilities'
+import {changeLevelDispatcher, changeLivesDispatcher} from './actionsRunner';
+import {generateGameCellsByLevel, calculateLives} from './operations';
+import {clone} from '../../components/helpers/utilities';
+import ShowToastHOC from '../../components/hoc/showToast';
 
 class BoardContainer extends Component<{}> {
     static navigationOptions = {
@@ -14,7 +15,6 @@ class BoardContainer extends Component<{}> {
 
     constructor(props) {
         super(props);
-        const {text} = props;
         this.state = {
             gameCells: [],
             passedTime: 0,
@@ -31,7 +31,8 @@ class BoardContainer extends Component<{}> {
             gameCells: [],
             passedTime: 0,
             selectedItems: [],
-            gameState: 'selectInit', 
+            gameState: 'selectInit',
+            leftToClick: 0,
         })
     }
 
@@ -45,6 +46,7 @@ class BoardContainer extends Component<{}> {
                 this.setState({
                     gameCells: cells,
                     selectedItems:[cells[0]],
+                    leftToClick: cells.length -1,
                     gameState: 'play'
                 });
                 break;
@@ -56,7 +58,7 @@ class BoardContainer extends Component<{}> {
 
     play(row, col){
         if(!this.state.gameCells.includes(parseInt(row + '' + col))){
-            alert('select another one');
+            this.props.showToast('select another one');
             return;
         }
         const can = this.canHaveAnotherMove(row, col)
@@ -65,18 +67,20 @@ class BoardContainer extends Component<{}> {
             let cloneSelectedItems = clone(this.state.selectedItems)
             cloneSelectedItems.push(parseInt(row + '' + col))
             if(cloneSelectedItems.length == this.props.level + 1){
-                alert('winner');
+                this.props.showToast('winner');
                 this.props.changeLevel(this.props.level + 1)
+                this.props.changeLives(calculateLives(this.props.lives, 0))
                 this.resetBoard()
             } else {
                 this.setState({
                     selectedItems:cloneSelectedItems,
+                    leftToClick: this.state.gameCells.length - cloneSelectedItems.length
                 });
             }
             
 
         } else {
-                alert('game over');
+            this.props.showToast('game over');
         }
     }
 
@@ -86,7 +90,6 @@ class BoardContainer extends Component<{}> {
             return false;
         }
         let can = false;
-        //TODO and not be in selectedItems. Should I check that?
         if(gameCell.includes(this.parser(row + this.straightMove, col))){
             can = true;
         }
@@ -128,6 +131,9 @@ class BoardContainer extends Component<{}> {
                 gameCells={this.state.gameCells}
                 selectedItems={this.state.selectedItems}
                 selectCell={bindSelectCell}
+                lives={this.props.lives}
+                leftToClick={this.state.leftToClick}
+                level={this.props.level}
             />
         );
 
@@ -141,6 +147,7 @@ state is your redux-store object
 const mapStateToProps = (state) => {
     return {
         level: state.boardReducer.level,
+        lives: state.boardReducer.lives
     };
 };
 
@@ -151,9 +158,11 @@ The defined method `addTodo` can be called in the scope of the components props.
 */
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeLevel: (level) => dispatch(changeLevelDispatcher(level))
+        changeLevel: (level) => dispatch(changeLevelDispatcher(level)),
+        changeLives: (lives) => dispatch(changeLivesDispatcher(lives)),
     };
 };
 
+const BoardContainerWithShowToast = ShowToastHOC(BoardContainer)
 /* clean way of setting up the connect. */
-export default connect(mapStateToProps, mapDispatchToProps)(BoardContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardContainerWithShowToast);

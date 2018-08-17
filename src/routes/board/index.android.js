@@ -3,7 +3,8 @@ import {View, Text, Button, TouchableHighlight} from 'react-native';
 import React, {Component} from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
 // import TimerMixin from 'react-timer-mixin';
-// import {normalize} from '../board/routes/components/helpers/sizeNormalizer'
+import {normalize} from '../../components/helpers/sizeNormalizer'
+const {width} = require('Dimensions').get('window');
 
 export default class BoardScreen extends Component<{}> {
     constructor(props) {
@@ -62,12 +63,11 @@ export default class BoardScreen extends Component<{}> {
     
 
     backGroundColor (row, col) {
-       let gameCell = this.props.gameCells
-        // let clickedItems = [11]
+       let gameCells = this.props.gameCells
         rowCol = parseInt(row + '' + col)
 
         let color= 'white'
-        if(gameCell.includes(rowCol)){
+        if(gameCells.includes(rowCol)){
             color = 'green'
         }
         if (this.props.selectedItems.includes(rowCol)){
@@ -136,7 +136,7 @@ export default class BoardScreen extends Component<{}> {
     render(){
         return (
             <View style={{flex:1}}>
-                <Grid style={{flex:1, backgroundColor: 'red'}}>
+                <Grid style={{width:width, height:width}}>
                    {this.renderBoard(10)}
                 </Grid>
                 <View style={{flexDirection: 'row', justifyContent:'space-around'}}>
@@ -146,15 +146,15 @@ export default class BoardScreen extends Component<{}> {
                     </View>
                     <View style={{flexDirection: 'row'}}>
                         <Text>Left to click: </Text>
-                        <Text> 10</Text>
+                        <Text>{this.props.leftToClick}</Text>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                         <Text>Lives: </Text>
-                        <Text> 10</Text>
+                        <Text>{this.props.lives}</Text>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                         <Text>Level: </Text>
-                        <Text> 10</Text>
+                        <Text>{this.props.level}</Text>
                     </View>
                 
                 </View>
