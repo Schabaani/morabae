@@ -3,7 +3,8 @@ import {Router, Scene} from "react-native-router-flux";
 import {connect, Provider} from 'react-redux';
 import configureStore from '../store/index';
 import {PersistGate} from "redux-persist/lib/integration/react";
-import BoardContainer from '../routes/board/container'
+import BoardContainer from '../routes/board/container';
+import ConfigContainer from '../routes/config/container';
 import {View} from 'react-native';
 
 
@@ -27,8 +28,12 @@ export default class App extends Component {
                     <RouterWithRedux>
                         <Scene>
                             <Scene
-                                key="boardScreen"
+                                key="BoardScreen"
                                 component={BoardContainer}
+                            />
+                            <Scene
+                                key="ConfigScreen"
+                                component={ConfigContainer}
                                 initial
                             />
                         </Scene>
