@@ -1,11 +1,8 @@
-import {changeName} from './actions'
+import {changeLevel} from './actions'
 
-export function changeNameAfterOneSeconds(text) {
+export function changeLevelDispatcher(level) {
     // We return a function instead of an action object
     return (dispatch) => {
-        setTimeout(() => {
-            // This function is able to dispatch other action creators
-            dispatch(changeName(text));
-        }, 1000);
+        dispatch(changeLevel(level))
     };
 }

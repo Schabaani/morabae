@@ -1,17 +1,15 @@
-import { CHANGE_NAME } from './actions'
+import {CHANGE_LEVEL } from './actions'
 
 const initialState = {
-  text: "guess!",
-  gameCells: [],
-  gameLevel: 1
+    level: 1
 };
 
 export default function boardReducer(state = initialState, action = {}) {
     switch (action.type) {
-        case CHANGE_NAME:
+        case CHANGE_LEVEL:
             return {
                 ...state,
-                text: action.text,
+                level: action.level,
             };
         default:
            return state;

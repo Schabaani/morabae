@@ -1,16 +1,8 @@
-export const CHANGE_NAME = 'CHANGE_NAME';
-export const ANOTHER_REDUCER = 'ANOTHER_REDUCER';
+export const CHANGE_LEVEL = 'CHANGE_LEVEL';
 
-export function changeName(text) {
+export function changeLevel(level) {
     return {
-        type: CHANGE_NAME,
-        text
-    }
-}
-
-export function changeReducer(something) {
-    return {
-        type: ANOTHER_REDUCER,
-        something
+        type: CHANGE_LEVEL,
+        level
     }
 }
