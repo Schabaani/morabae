@@ -30,11 +30,11 @@ export default class App extends Component {
                             <Scene
                                 key="BoardScreen"
                                 component={BoardContainer}
+                                initial
                             />
                             <Scene
                                 key="ConfigScreen"
                                 component={ConfigContainer}
-                                initial
                             />
                         </Scene>
                     </RouterWithRedux>

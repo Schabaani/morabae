@@ -14,7 +14,7 @@ export default (Comp) => {
             super(props);
         }
 
-        showToast = (message, duration = DURATION.LENGTH_LONG * 1.3 ) => {
+        showToast = (message, duration = DURATION.LENGTH_LONG * 2 ) => {
             this.refs.toast.show(message, duration);
         };
 

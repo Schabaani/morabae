@@ -19,7 +19,7 @@ class BoardContainer extends Component<{}> {
             gameCells: [],
             passedTime: 0,
             selectedItems: [],
-            gameState: 'start' // start | selectInit | play | gameOver | exit
+            gameState: 'start' // start | selectInit | play | gameOver | exit | complete
         };
         this.diagonallyMove = 2;
         this.straightMove = 3;
@@ -47,7 +47,11 @@ class BoardContainer extends Component<{}> {
                     gameCells: cells,
                     selectedItems:[cells[0]],
                     leftToClick: cells.length -1,
-                    gameState: 'play'
+                    gameState: 'play',
+                    bigTitle: '',
+                    title: '',
+                    yesCallBack: undefined,
+                    noCallBack: undefined
                 });
                 break;
             case 'play':
@@ -63,7 +67,7 @@ class BoardContainer extends Component<{}> {
         }
         const can = this.canHaveAnotherMove(row, col)
         // TODO revert it 
-        if(!can){
+        if(can){
             let cloneSelectedItems = clone(this.state.selectedItems)
             cloneSelectedItems.push(parseInt(row + '' + col))
             if(cloneSelectedItems.length == this.props.level + 1){
@@ -81,6 +85,13 @@ class BoardContainer extends Component<{}> {
 
         } else {
             this.props.showToast('game over');
+            this.setState({
+                gameState: 'gameOver',
+                bigTitle: 'End Game',
+                title: 'Do you want to play again',
+                yesCallBack: () => {alert('Yes')},
+                noCallBack: () => {alert('No')},
+            });
         }
     }
 
@@ -134,6 +145,11 @@ class BoardContainer extends Component<{}> {
                 lives={this.props.lives}
                 leftToClick={this.state.leftToClick}
                 level={this.props.level}
+                bigTitle={this.state.bigTitle}
+                title={this.state.title}
+                yesCallBack={this.state.yesCallBack}
+                noCallBack={this.state.noCallBack}
+                gameState={this.state.gameState}
             />
         );
 
