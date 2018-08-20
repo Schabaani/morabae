@@ -1,4 +1,4 @@
-package com.boiler;
+package com.tradecore;
 
 import android.app.Application;
 
