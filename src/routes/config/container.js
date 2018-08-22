@@ -22,7 +22,7 @@ class ConfigContainer extends Component<{}> {
         }
         this.props.changeLevel(parseInt(this.state.startLevel));
         Actions.HomeScreen();
-    }
+    };
 
     resetConfig = () => {
         this.props.resetConfig();
@@ -35,13 +35,13 @@ class ConfigContainer extends Component<{}> {
             return false;
         }
         return true;
-    }
+    };
 
     changeDefaultLevel =(startLevel)=>{
        this.setState({
         startLevel,
        })
-    }
+    };
 
 
     render() {
@@ -79,6 +79,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const ConfigContainerWithShowToast = ShowToastHOC(ConfigContainer)
+const ConfigContainerWithShowToast = ShowToastHOC(ConfigContainer);
 /* clean way of setting up the connect. */
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigContainerWithShowToast);
