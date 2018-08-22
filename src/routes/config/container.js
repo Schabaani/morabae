@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import ConfigScreen from './index';
-import {saveStartLevelConfig} from './actions'
-import {saveStartLevelConfigDispatcher} from './actionsRunner';
+import {saveStartLevelConfigDispatcher, resetConfigDispatcher} from './actionsRunner';
 import ShowToastHOC from '../../components/hoc/showToast';
+import {Actions} from 'react-native-router-flux'
 
 class ConfigContainer extends Component<{}> {
     static navigationOptions = {
@@ -13,20 +12,25 @@ class ConfigContainer extends Component<{}> {
 
     constructor(props) {
         super(props);
-        this.startLevel= this.props.startLevel;
-    }
-    saveConfig = ()=>{
-        if(!this.verifyData(this.startLevel)){
-            return;
+        this.state = {
+            startLevel: this.props.startLevel,
         }
     }
+    saveConfig = () => {
+        if(!this.verifyData(this.state.startLevel)){
+            return;
+        }
+        this.props.changeLevel(parseInt(this.state.startLevel));
+        Actions.HomeScreen();
+    }
 
-    resetConfig = ()=>{
-        
+    resetConfig = () => {
+        this.props.resetConfig();
+        Actions.HomeScreen()
     };
 
     verifyData =(startLevel) =>{
-        if(startLevel <=0 || startLevel > 99){
+        if(startLevel <=0 || startLevel > 99 || !startLevel){
             this.props.showToast('Please set level between 1 to 99');
             return false;
         }
@@ -34,16 +38,19 @@ class ConfigContainer extends Component<{}> {
     }
 
     changeDefaultLevel =(startLevel)=>{
-        this.startLevel = startLevel;
+       this.setState({
+        startLevel,
+       })
     }
 
 
     render() {
         return (
             <ConfigScreen
-                startLevel={this.startLevel}
+                startLevel={this.state.startLevel}
                 saveConfig={this.saveConfig}
                 changeDefaultLevel={this.changeDefaultLevel}
+                resetConfig={this.resetConfig}
             />
         );
 
@@ -68,6 +75,7 @@ The defined method `addTodo` can be called in the scope of the components props.
 const mapDispatchToProps = (dispatch) => {
     return {
         changeLevel: (level) => dispatch(saveStartLevelConfigDispatcher(level)),
+        resetConfig: () => dispatch(resetConfigDispatcher()),
     };
 };
 

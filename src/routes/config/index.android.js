@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import {normalize} from '../../components/helpers/sizeNormalizer'
 const {width} = require('Dimensions').get('window');
 
-export default class BoardScreen extends Component<{}> {
+export default class ConfigScreen extends Component<{}> {
     constructor(props) {
         super(props);
     }
@@ -14,10 +14,10 @@ export default class BoardScreen extends Component<{}> {
             <View style={{flex:1, justifyContent: 'center'}}>
                     <TextInput
                         placeholder={'start level'}
-                        value={this.props.startLevel.toString()}
+                        value={this.props.startLevel? `${this.props.startLevel}` : undefined }
                         keyboardType={'numeric'}
                         textAlign={'center'}
-                        onValueChange={(value) => {this.props.changeDefaultLevel(value)}}
+                        onChangeText={(value) => {this.props.changeDefaultLevel(value)}}
                     />
                     <TouchableHighlight
                         onPress={()=>{

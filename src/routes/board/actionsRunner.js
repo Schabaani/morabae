@@ -1,9 +1,24 @@
 import {changeLevel, changeLives} from './actions'
+import {saveCompletedLevelConfig} from '../config/actions'
 
 export function changeLevelDispatcher(level) {
     // We return a function instead of an action object
-    return (dispatch) => {
-        dispatch(changeLevel(level))
+    return (dispatch, getState) => {
+        const mode = getState().configReducer.mode;
+        if(!mode){
+            let completedLevel = getState().boardReducer.completedLevel
+            if(completedLevel < level){
+                completedLevel = level
+            }
+            dispatch(changeLevel(level, completedLevel))
+        } else {
+            let completedLevel = getState().configReducer.completedLevel
+            if(completedLevel < level){
+                completedLevel = level
+            }
+            dispatch(saveCompletedLevelConfig(level, completedLevel))
+        }
+        
     };
 }
 

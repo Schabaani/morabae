@@ -70,14 +70,21 @@ class BoardContainer extends Component<{}> {
         }
         const can = this.canHaveAnotherMove(row, col)
         // TODO revert it 
-        if(can){
+        if(!can){
             let cloneSelectedItems = clone(this.state.selectedItems)
             cloneSelectedItems.push(parseInt(row + '' + col))
             if(cloneSelectedItems.length == this.props.level + 1){
-                this.props.showToast('winner');
                 this.props.changeLevel(this.props.level + 1)
                 this.props.changeLives(calculateLives(this.props.lives, 0))
-                this.resetBoard()
+                this.setState({
+                    gameState: 'complete',
+                    modalVisibilty: true,
+                    bigTitle: `You have completed level: ${this.props.level}`,
+                    title: 'Do you want to play next level?',
+                    yesCallBack: () => {this.yesCallBack()},
+                    noCallBack: () => {this.noCallBack()},
+                });
+                // this.resetBoard()
             } else {
                 this.setState({
                     selectedItems:cloneSelectedItems,
@@ -87,7 +94,6 @@ class BoardContainer extends Component<{}> {
             
 
         } else {
-            this.props.showToast('game over');
             this.setState({
                 gameState: 'gameOver',
                 modalVisibilty: true,
@@ -178,8 +184,14 @@ map state to props
 state is your redux-store object
 */
 const mapStateToProps = (state) => {
+    let level = undefined;
+    if(state.configReducer.mode){
+        level = state.configReducer.currentLevel
+    } else {
+        level = state.boardReducer.currentLevel
+    }
     return {
-        level: state.boardReducer.level,
+        level: level,
         lives: state.boardReducer.lives
     };
 };

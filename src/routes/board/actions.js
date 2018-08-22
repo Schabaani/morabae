@@ -1,9 +1,10 @@
 export const CHANGE_LEVEL = 'CHANGE_LEVEL';
 
-export function changeLevel(level) {
+export function changeLevel(level, completedLevel) {
     return {
         type: CHANGE_LEVEL,
-        level
+        level,
+        completedLevel
     }
 }
 
