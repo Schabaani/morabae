@@ -11,26 +11,30 @@ export default class Alert extends Component<{}> {
 
     render() {
         return (
-            <View style={{ alignItems: 'center'}}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', flex:0.5}}>
                 <View style={
                         {
-                            marginTop: '40%', 
-                            borderRadius: 10, width: 300 ,
-                            alignItems: 'center',
+                            paddingTop: 10, 
+                            borderRadius: 10, 
+                            width: 300 ,
+                            height: '50%',
+                            backgroundColor: 'white',
+                            paddingLeft: 20,
                         }
                     }
                     >
-                    <Text>{this.props.bigTitle}</Text>
+                    <Text style={{fontWeight: "bold", fontSize: 18, paddingBottom:3}}>{this.props.bigTitle}</Text>
                     <Text>{this.props.title}</Text>
-                    <View style={{flexDirection: 'row', width: 100, height:100}}>
+                    <View style={{flexDirection: 'row', width: 100, marginTop:7}}>
                         <TouchableHighlight
                             onPress={
                                 () =>{
                                     this.props.noCallBack();
                                 }
                             }
+                            style={{backgroundColor: 'black', width: 40, marginRight: 10, alignItems: 'center', justifyContent: 'center' }}
                         >
-                                <Text>No</Text>
+                                <Text style={{color: 'white'}}>No</Text>
                         </TouchableHighlight>
 
                         <TouchableHighlight
@@ -38,9 +42,10 @@ export default class Alert extends Component<{}> {
                                 () =>{
                                     this.props.yesCallBack();
                                 }
-                            }   
+                            }
+                            style={{backgroundColor: 'black', width: 40, marginRight: 10, alignItems: 'center', justifyContent: 'center' }}
                         >
-                            <Text>Yes</Text>
+                            <Text style={{color: 'white'}}>Yes</Text>
                         </TouchableHighlight>
 
                     </View>

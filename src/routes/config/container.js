@@ -13,16 +13,37 @@ class ConfigContainer extends Component<{}> {
 
     constructor(props) {
         super(props);
+        this.startLevel= this.props.startLevel;
     }
     saveConfig = ()=>{
+        if(!this.verifyData(this.startLevel)){
+            return;
+        }
+    }
+
+    resetConfig = ()=>{
+        
+    };
+
+    verifyData =(startLevel) =>{
+        if(startLevel <=0 || startLevel > 99){
+            this.props.showToast('Please set level between 1 to 99');
+            return false;
+        }
+        return true;
+    }
+
+    changeDefaultLevel =(startLevel)=>{
+        this.startLevel = startLevel;
     }
 
 
     render() {
         return (
             <ConfigScreen
-                startLevel={this.props.startLevel}
+                startLevel={this.startLevel}
                 saveConfig={this.saveConfig}
+                changeDefaultLevel={this.changeDefaultLevel}
             />
         );
 

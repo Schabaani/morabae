@@ -1,11 +1,12 @@
 
-import {View, Text, TouchableHighlight, Modal} from 'react-native';
+import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import React, {Component} from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
 // import TimerMixin from 'react-timer-mixin';
 import {normalize} from '../../components/helpers/sizeNormalizer'
 import Alert from '../../components/alert';
 const {width} = require('Dimensions').get('window');
+import Modal from "react-native-modal";
 
 export default class BoardScreen extends Component<{}> {
     constructor(props) {
@@ -17,7 +18,6 @@ export default class BoardScreen extends Component<{}> {
         this.diagonallyMove = 2;
         this.straightMove = 3;
         this.timer = undefined;
-        // this.tick = this.tick.bnid(this);
     }
 
     // componentDidMount(){
@@ -41,11 +41,11 @@ export default class BoardScreen extends Component<{}> {
                                 size={10}    
                                 key={row}
                             >
-                                    <TouchableHighlight onPress={() => {this.props.selectCell(row,col)}}
+                                    <TouchableWithoutFeedback onPress={() => {this.props.selectCell(row,col)}}
                                     style={{flex:1}}
                                      >
                                         <Text>{row}{col}</Text>
-                                    </TouchableHighlight>
+                                    </TouchableWithoutFeedback>
                             </Row>
                 rowComponets.push(cell)
             }
@@ -77,67 +77,67 @@ export default class BoardScreen extends Component<{}> {
         return color;
     }
 
-    selectCell (row, col){
-        let gameCell = this.props.gameCells
-        if(!gameCell.includes(this.parser(row,col))){
-            alert('please select right cell');
-        } else if (this.props.selectedItems.includes(this.parser(row, col))){
-            alert('you selected before');
-        }
-        const can = this.canHaveAnotherMove(row, col);
-        alert(can)
-        if(!can) {
-            this.runFinishGame();
-        }
+    // selectCell (row, col){
+    //     let gameCell = this.props.gameCells
+    //     if(!gameCell.includes(this.parser(row,col))){
+    //         alert('please select right cell');
+    //     } else if (this.props.selectedItems.includes(this.parser(row, col))){
+    //         alert('you selected before');
+    //     }
+    //     const can = this.canHaveAnotherMove(row, col);
+    //     alert(can)
+    //     if(!can) {
+    //         this.runFinishGame();
+    //     }
         
-    }
+    // }
 
-    runFinishGame(){
-        alert('game over!');
-    }
+    // runFinishGame(){
+    //     alert('game over!');
+    // }
 
-    canHaveAnotherMove(row, col) {
-        let gameCell = this.props.gameCells
-        if(this.props.selectedItems.includes(parseInt(row + '' + col))){
-            return false;
-        }
-        let can = false;
-        //TODO and not be in selectedItems. Should I check that?
-        if(gameCell.includes(this.parser(row + this.straightMove, col))){
-            alert(1)
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row - this.straightMove, col))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row, col + this.straightMove))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row, col - this.straightMove))){
-            can = true;
-        }
-        // 
-        if(gameCell.includes(this.parser(row + this.diagonallyMove, col - this.diagonallyMove))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row + this.diagonallyMove, col + this.diagonallyMove))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row - this.diagonallyMove, col + this.diagonallyMove))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row - this.diagonallyMove, col - this.diagonallyMove))){
-            can = true;
-        }
-        alert(can);
+    // canHaveAnotherMove(row, col) {
+    //     let gameCell = this.props.gameCells
+    //     if(this.props.selectedItems.includes(parseInt(row + '' + col))){
+    //         return false;
+    //     }
+    //     let can = false;
+    //     //TODO and not be in selectedItems. Should I check that?
+    //     if(gameCell.includes(this.parser(row + this.straightMove, col))){
+    //         alert(1)
+    //         can = true;
+    //     }
+    //     if(gameCell.includes(this.parser(row - this.straightMove, col))){
+    //         can = true;
+    //     }
+    //     if(gameCell.includes(this.parser(row, col + this.straightMove))){
+    //         can = true;
+    //     }
+    //     if(gameCell.includes(this.parser(row, col - this.straightMove))){
+    //         can = true;
+    //     }
+    //     // 
+    //     if(gameCell.includes(this.parser(row + this.diagonallyMove, col - this.diagonallyMove))){
+    //         can = true;
+    //     }
+    //     if(gameCell.includes(this.parser(row + this.diagonallyMove, col + this.diagonallyMove))){
+    //         can = true;
+    //     }
+    //     if(gameCell.includes(this.parser(row - this.diagonallyMove, col + this.diagonallyMove))){
+    //         can = true;
+    //     }
+    //     if(gameCell.includes(this.parser(row - this.diagonallyMove, col - this.diagonallyMove))){
+    //         can = true;
+    //     }
+    //     alert(can);
 
-    }
+    // }
 
 
     render(){
         return (
             <View style={{flex:1}}>
-                <Grid style={{width:width, height:width}}>
+                <Grid style={{width:width, height:width, flex: 0.5}}>
                    {this.renderBoard(10)}
                 </Grid>
                 <View style={{flexDirection: 'row', justifyContent:'space-around'}}>
@@ -159,20 +159,32 @@ export default class BoardScreen extends Component<{}> {
                     </View>
                 
                 </View>
-                    <Modal
-                        animationType="slide"
-                        transparent={false}
-                        visible={this.props.gameState == 'gameOver'}
-                        >
+                <Modal isVisible={this.props.modalVisibilty}>
                         <Alert
-                            bigTitle={this.props.bigTitle}
-                            title={this.props.title}
-                            noCallBack={this.props.noCallBack}
-                            yesCallBack={this.props.yesCallBack}
-                         />
-                    </Modal>  
+                        bigTitle={this.props.bigTitle}
+                        title={this.props.title}
+                        noCallBack={this.props.noCallBack}
+                        yesCallBack={this.props.yesCallBack}
+                    />
+                </Modal>
+                    
             </View>
         )
     }
 
 }
+
+
+// <Modal
+//                         animationType="slide"
+//                         transparent={true}
+//                         style={{backgroundColor: 'black', opacity: 0.5}}
+//                         visible={this.props.modalVisibilty}
+//                         >
+//                         <Alert
+//                             bigTitle={this.props.bigTitle}
+//                             title={this.props.title}
+//                             noCallBack={this.props.noCallBack}
+//                             yesCallBack={this.props.yesCallBack}
+//                          />
+//                     </Modal>  

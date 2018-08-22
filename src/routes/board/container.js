@@ -19,7 +19,9 @@ class BoardContainer extends Component<{}> {
             gameCells: [],
             passedTime: 0,
             selectedItems: [],
-            gameState: 'start' // start | selectInit | play | gameOver | exit | complete
+            gameState: 'start', // start | selectInit | play | gameOver | exit | complete
+            modalVisibilty: false
+
         };
         this.diagonallyMove = 2;
         this.straightMove = 3;
@@ -33,6 +35,7 @@ class BoardContainer extends Component<{}> {
             selectedItems: [],
             gameState: 'selectInit',
             leftToClick: 0,
+            modalVisibilty: false
         })
     }
 
@@ -51,7 +54,7 @@ class BoardContainer extends Component<{}> {
                     bigTitle: '',
                     title: '',
                     yesCallBack: undefined,
-                    noCallBack: undefined
+                    noCallBack: undefined,
                 });
                 break;
             case 'play':
@@ -87,13 +90,26 @@ class BoardContainer extends Component<{}> {
             this.props.showToast('game over');
             this.setState({
                 gameState: 'gameOver',
+                modalVisibilty: true,
                 bigTitle: 'End Game',
                 title: 'Do you want to play again',
-                yesCallBack: () => {alert('Yes')},
-                noCallBack: () => {alert('No')},
+                yesCallBack: () => {this.yesCallBack()},
+                noCallBack: () => {this.noCallBack()},
             });
         }
     }
+
+    yesCallBack = () =>{
+        this.resetBoard();
+        // this.setState({
+        //     modalVisibilty: false,
+        //     gameState: 'start',
+        // });
+    };
+
+    noCallBack = () =>{
+        
+    };
 
     canHaveAnotherMove(row, col) {
         let gameCell = this.state.gameCells
@@ -150,6 +166,7 @@ class BoardContainer extends Component<{}> {
                 yesCallBack={this.state.yesCallBack}
                 noCallBack={this.state.noCallBack}
                 gameState={this.state.gameState}
+                modalVisibilty={this.state.modalVisibilty}
             />
         );
 
