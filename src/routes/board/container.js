@@ -6,6 +6,8 @@ import {generateGameCellsByLevel, calculateLives, findMoveAreas, makeRowAndCol} 
 import {clone} from '../../components/helpers/utilities';
 import ShowToastHOC from '../../components/hoc/showToast';
 import {Actions} from 'react-native-router-flux'
+import I18n from '../../components/helpers/i18n/i18n';
+import {LanguageKeys} from '../../components/helpers/i18n/locales/languageKeys';
 
 class BoardContainer extends Component<{}> {
     static navigationOptions = {
@@ -31,11 +33,11 @@ class BoardContainer extends Component<{}> {
         this.timer = undefined;
     }
 
-    setTimer(){
+    setTimer() {
         this.timer = setInterval(this.tick, 1000);
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.clearTimer();
     }
 
@@ -43,11 +45,11 @@ class BoardContainer extends Component<{}> {
         clearInterval(this.timer);
     };
 
-    tick =() =>{
-        this.setState({timePassed:this.state.timePassed + 1});
+    tick = () => {
+        this.setState({timePassed: this.state.timePassed + 1});
     };
 
-    resetBoard(){
+    resetBoard() {
         this.setState({
             gameCells: [],
             passedTime: 0,
@@ -55,35 +57,27 @@ class BoardContainer extends Component<{}> {
             gameState: 'selectInit',
             leftToClick: 0,
             modalVisibility: false,
-            // bigTitle: '',
-            // title: '',
-            // yesCallBack: undefined,
-            // noCallBack: undefined,
-        })
+        });
     }
 
-    selectCell =(row, col) =>{
-        switch(this.state.gameState){
+    selectCell = (row, col) => {
+        switch (this.state.gameState) {
             case 'start':
-               this.resetBoard();
-               break;
+                this.resetBoard();
+                break;
             case 'selectInit':
-                const cells = generateGameCellsByLevel(this.props.level,row,col);
+                const cells = generateGameCellsByLevel(this.props.level, row, col);
                 this.setTimer();
                 this.setState({
                     gameCells: cells,
-                    selectedItems:[cells[0]],
-                    leftToClick: cells.length -1,
+                    selectedItems: [cells[0]],
+                    leftToClick: cells.length - 1,
                     gameState: 'play',
-                    timePassed:0,
-                    // bigTitle: '',
-                    // title: '',
-                    // yesCallBack: undefined,
-                    // noCallBack: undefined,
+                    timePassed: 0,
                 });
                 break;
             case 'play':
-               this.play(row, col);
+                this.play(row, col);
                 break;
         }
     };
@@ -93,34 +87,28 @@ class BoardContainer extends Component<{}> {
         return findMoveAreas(cell.row, cell.col).indexOf(parseInt(currentRow + '' + currentCol)) > -1;
     };
 
-    play(row, col){
-        if(!this.state.gameCells.includes(parseInt(row + '' + col))){
-            this.props.showToast('select another one');
+    play(row, col) {
+        if (!this.state.gameCells.includes(parseInt(row + '' + col))) {
+            this.props.showToast(I18n.t(LanguageKeys.SelectAnotherOne));
             return;
         }
-        if(this.isSelectedBefore(row, col)){
+        if (this.isSelectedBefore(row, col)) {
             return;
         }
-        if(!this.isInPreviousCellArea(this.state.selectedItems[this.state.selectedItems.length-1], row, col)){
+        if (!this.isInPreviousCellArea(this.state.selectedItems[this.state.selectedItems.length - 1], row, col)) {
             this.runGameOver();
             return;
         }
 
         const a = parseInt(row + '' + col);
-        if(this.state.gameCells.includes(a)){
-            this.fillBoardNextStep(row,col);
+        if (this.state.gameCells.includes(a)) {
+            this.fillBoardNextStep(row, col);
         }
-        // const can = this.canHaveAnotherMove(row, col);
-        // if(can){
-        //     this.fillBoardNextStep(row,col)
-        // } else {
-        //     this.runGameOver();
-        // }
     }
-    isSelectedBefore= (row, col)=>{
-        // alert(row + '' + col)
-        if(this.state.selectedItems.includes(parseInt(row + '' + col))){
-            this.props.showToast('this cell has been selected before');
+
+    isSelectedBefore = (row, col) => {
+        if (this.state.selectedItems.includes(parseInt(row + '' + col))) {
+            this.props.showToast(I18n.t(LanguageKeys.SelectedBefore));
             return true;
         }
         return false;
@@ -129,15 +117,15 @@ class BoardContainer extends Component<{}> {
     fillBoardNextStep = (row, col) => {
         let cloneSelectedItems = clone(this.state.selectedItems);
         cloneSelectedItems.push(parseInt(row + '' + col));
-        if(cloneSelectedItems.length === this.props.level + 1){
+        if (cloneSelectedItems.length === this.props.level + 1) {
             this.winTheLevel();
         } else {
             this.setState({
-                selectedItems:cloneSelectedItems,
+                selectedItems: cloneSelectedItems,
                 leftToClick: this.state.gameCells.length - cloneSelectedItems.length
             });
             const can = this.canHaveAnotherMove(row, col);
-            if(!can){
+            if (!can) {
                 this.runGameOver();
             }
         }
@@ -149,23 +137,31 @@ class BoardContainer extends Component<{}> {
         this.setState({
             gameState: 'complete',
             modalVisibility: true,
-            bigTitle: `You have completed level: ${this.props.level}`,
-            title: 'Do you want to play next level?',
-            yesCallBack: () => {this.continueGame()},
-            noCallBack: () => {this.exit()},
-            timePassed:0,
+            bigTitle: `${I18n.t(LanguageKeys.CompleteLevel)}: ${this.props.level}`,
+            title: I18n.t(LanguageKeys.DoYouWantPlayNext),
+            yesCallBack: () => {
+                this.continueGame()
+            },
+            noCallBack: () => {
+                this.exit()
+            },
+            timePassed: 0,
         });
     };
-    runGameOver = () =>{
+    runGameOver = () => {
         this.props.changeLives(calculateLives(this.props.lives, this.state.leftToClick));
         this.clearTimer();
         this.setState({
             gameState: 'gameOver',
             modalVisibility: true,
-            bigTitle: 'End Game',
-            title: 'Do you want to play again',
-            yesCallBack: () => {this.resetBoard()},
-            noCallBack: () => {this.exit()},
+            bigTitle: I18n.t(LanguageKeys.EndGame),
+            title: I18n.t(LanguageKeys.PlayAgain),
+            yesCallBack: () => {
+                this.resetBoard()
+            },
+            noCallBack: () => {
+                this.exit()
+            },
         });
     };
 
@@ -173,7 +169,7 @@ class BoardContainer extends Component<{}> {
         this.resetBoard();
     };
 
-    exit = () =>{
+    exit = () => {
         this.setState({
             gameState: 'exit',
             modalVisibility: false,
@@ -181,107 +177,51 @@ class BoardContainer extends Component<{}> {
         Actions.HomeScreen();
     };
 
-    // yesCallBack = () =>{
-    //     this.resetBoard();
-    //     // this.setState({
-    //     //     modalVisibility: false,
-    //     //     gameState: 'start',
-    //     // });
-    // };
-    //
-    // noCallBack = () =>{
-    //
-    // };
-
-    ismis = (row, col) =>{
+    isClickable = (row, col) => {
         let gameCell = this.state.gameCells;
         let {selectedItems} = this.state;
         const parsed = this.parser(row, col);
-        if(parsed === undefined){
+        if (parsed === undefined) {
             return false;
         }
-        const res = gameCell.includes(parsed)
+        return gameCell.includes(parsed)
             && !selectedItems.includes(parsed);
-        console.log('res is', res,
-            'parsed', parsed,
-            'game cell',gameCell.includes(parsed),
-            'is in selectedItems',selectedItems.includes(parsed),
-            'gameCell items', gameCell,
-            'selected items', selectedItems,
-        ) ;
-        return res
-
     };
 
     canHaveAnotherMove(row, col) {
-        let gameCell = this.state.gameCells;
-        let {selectedItems} = this.state;
         let can = false;
-        console.log('here:',row, col);
-        if(this.ismis(row + this.straightMove, col)){
+        if (this.isClickable(row + this.straightMove, col)) {
             can = true;
         }
-        if(this.ismis(row - this.straightMove, col)){
+        if (this.isClickable(row - this.straightMove, col)) {
             can = true;
         }
-        if(this.ismis(row, col + this.straightMove)){
+        if (this.isClickable(row, col + this.straightMove)) {
             can = true;
         }
-        if(this.ismis(row, col - this.straightMove)){
+        if (this.isClickable(row, col - this.straightMove)) {
             can = true;
         }
-        if(this.ismis(row + this.diagonallyMove, col - this.diagonallyMove)){
+        if (this.isClickable(row + this.diagonallyMove, col - this.diagonallyMove)) {
             can = true;
         }
-        if(this.ismis(row + this.diagonallyMove, col + this.diagonallyMove)){
+        if (this.isClickable(row + this.diagonallyMove, col + this.diagonallyMove)) {
             can = true;
         }
-        if(this.ismis(row - this.diagonallyMove, col + this.diagonallyMove)){
+        if (this.isClickable(row - this.diagonallyMove, col + this.diagonallyMove)) {
             can = true;
         }
-        if(this.ismis(row - this.diagonallyMove, col - this.diagonallyMove)){
-            can = true;
-        }
-
-        return can;
-
-
-
-
-
-        if(gameCell.includes(this.parser(row + this.straightMove, col))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row - this.straightMove, col))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row, col + this.straightMove))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row, col - this.straightMove))){
-            can = true;
-        }
-
-        if(gameCell.includes(this.parser(row + this.diagonallyMove, col - this.diagonallyMove))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row + this.diagonallyMove, col + this.diagonallyMove))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row - this.diagonallyMove, col + this.diagonallyMove))){
-            can = true;
-        }
-        if(gameCell.includes(this.parser(row - this.diagonallyMove, col - this.diagonallyMove))){
+        if (this.isClickable(row - this.diagonallyMove, col - this.diagonallyMove)) {
             can = true;
         }
         return can;
     }
 
-    parser(row, col){
-        if(!isNaN(row + '' + col) && parseInt(row + '' + col) > 0 && parseInt(row + '' + col) < 99){
-          return parseInt(row + '' + col)
+    parser(row, col) {
+        if (!isNaN(row + '' + col) && parseInt(row + '' + col) > 0 && parseInt(row + '' + col) < 99) {
+            return parseInt(row + '' + col)
         }
-          return undefined
+        return undefined
     }
 
     render() {
@@ -307,13 +247,10 @@ class BoardContainer extends Component<{}> {
     }
 }
 
-/*
-map state to props
-state is your redux-store object
-*/
+
 const mapStateToProps = (state) => {
     let level = undefined;
-    if(state.configReducer.mode){
+    if (state.configReducer.mode) {
         level = state.configReducer.currentLevel
     } else {
         level = state.boardReducer.currentLevel
@@ -325,10 +262,6 @@ const mapStateToProps = (state) => {
 };
 
 
-/*
-connect dispatch to props so that you can call the methods from the active props scope.
-The defined method `addTodo` can be called in the scope of the components props.
-*/
 const mapDispatchToProps = (dispatch) => {
     return {
         changeLevel: (level) => dispatch(changeLevelDispatcher(level)),
@@ -337,5 +270,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const BoardContainerWithShowToast = ShowToastHOC(BoardContainer);
-/* clean way of setting up the connect. */
 export default connect(mapStateToProps, mapDispatchToProps)(BoardContainerWithShowToast);

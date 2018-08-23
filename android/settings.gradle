@@ -1,3 +1,6 @@
 rootProject.name = 'boiler'
 
+include ':app', ':react-native-i18n'
+project(':react-native-i18n').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-i18n/android')
+
 include ':app'

@@ -1,0 +1,17 @@
+export default {
+    EndGame: 'End Game',
+    PlayAgain: 'Do you want to play again',
+    DoYouWantPlayNext: 'Do you want to play next level',
+    CompleteLevel: 'You have completed level',
+    SelectedBefore: 'This cell has selected before',
+    SelectAnotherOne: 'Please select another one',
+    Timer: 'Timer:',
+    LeftToClick: 'Left To Click:',
+    Lives: 'Lives:',
+    Level: 'Level:',
+    SetBetween1To99: 'Please select between 1To 99',
+    StartLevelPlaceholder: 'start level',
+    SaveDefaultLevel: 'save default level',
+    ResetDefaultLevel: 'reset default level',
+    SelectOneLevel: 'select one level',
+};

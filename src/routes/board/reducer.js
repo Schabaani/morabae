@@ -1,10 +1,10 @@
-import {CHANGE_LEVEL, CHANGE_LIVES } from './actions'
+import {CHANGE_LEVEL, CHANGE_LIVES} from './actions'
 
 const initialState = {
-    level: 1,
+    // level: 1,
     currentLevel: 1,
     completedLevel: 1,
-    lives:0
+    lives: 0
 };
 
 export default function boardReducer(state = initialState, action = {}) {
@@ -12,16 +12,16 @@ export default function boardReducer(state = initialState, action = {}) {
         case CHANGE_LEVEL:
             return {
                 ...state,
-                level: action.level,
+                // level: action.level,
                 currentLevel: action.level,
                 completedLevel: action.completedLevel,
             };
         case CHANGE_LIVES:
-        return{
-            ...state,
-            lives: action.lives
-        }    
+            return {
+                ...state,
+                lives: action.lives
+            };
         default:
-           return state;
+            return state;
     }
 }

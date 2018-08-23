@@ -4,6 +4,9 @@ import ConfigScreen from './index';
 import {saveStartLevelConfigDispatcher, resetConfigDispatcher} from './actionsRunner';
 import ShowToastHOC from '../../components/hoc/showToast';
 import {Actions} from 'react-native-router-flux'
+import dismissKeyboard from "react-native-dismiss-keyboard";
+import I18n from '../../components/helpers/i18n/i18n';
+import {LanguageKeys} from '../../components/helpers/i18n/locales/languageKeys';
 
 class ConfigContainer extends Component<{}> {
     static navigationOptions = {
@@ -16,10 +19,12 @@ class ConfigContainer extends Component<{}> {
             startLevel: this.props.startLevel,
         }
     }
+
     saveConfig = () => {
-        if(!this.verifyData(this.state.startLevel)){
+        if (!this.verifyData(this.state.startLevel)) {
             return;
         }
+        dismissKeyboard();
         this.props.changeLevel(parseInt(this.state.startLevel));
         Actions.HomeScreen();
     };
@@ -29,20 +34,19 @@ class ConfigContainer extends Component<{}> {
         Actions.HomeScreen()
     };
 
-    verifyData =(startLevel) =>{
-        if(startLevel <=0 || startLevel > 99 || !startLevel){
-            this.props.showToast('Please set level between 1 to 99');
+    verifyData = (startLevel) => {
+        if (startLevel <= 0 || startLevel > 99 || !startLevel) {
+            this.props.showToast(I18n.t(LanguageKeys.SetBetween1To99));
             return false;
         }
         return true;
     };
 
-    changeDefaultLevel =(startLevel)=>{
-       this.setState({
-        startLevel,
-       })
+    changeDefaultLevel = (startLevel) => {
+        this.setState({
+            startLevel,
+        })
     };
-
 
     render() {
         return (
@@ -57,21 +61,12 @@ class ConfigContainer extends Component<{}> {
     }
 }
 
-/*
-map state to props
-state is your redux-store object
-*/
 const mapStateToProps = (state) => {
     return {
         startLevel: state.configReducer.startLevel,
     };
 };
 
-
-/*
-connect dispatch to props so that you can call the methods from the active props scope.
-The defined method `addTodo` can be called in the scope of the components props.
-*/
 const mapDispatchToProps = (dispatch) => {
     return {
         changeLevel: (level) => dispatch(saveStartLevelConfigDispatcher(level)),
@@ -80,5 +75,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const ConfigContainerWithShowToast = ShowToastHOC(ConfigContainer);
-/* clean way of setting up the connect. */
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigContainerWithShowToast);
