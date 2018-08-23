@@ -2,7 +2,6 @@ import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import React, {Component} from 'react';
 import {Col, Row, Grid} from "react-native-easy-grid";
 import Alert from '../../components/alert';
-const {width} = require('Dimensions').get('window');
 import Modal from "react-native-modal";
 import {COLOR} from "../../components/helpers/colorPalette";
 import I18n from '../../components/helpers/i18n/i18n';
@@ -59,7 +58,7 @@ export default class BoardScreen extends Component<{}> {
     render() {
         return (
             <View style={{flex: 1}}>
-                <Grid style={{width: width, height: width, flex: 0.5}}>
+                <Grid style={{flex: 0.5}}>
                     {this.renderBoard(10)}
                 </Grid>
                 <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>

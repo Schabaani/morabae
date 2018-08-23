@@ -3,7 +3,9 @@ import React, {Component} from 'react';
 import {normalizeFont} from "../../components/helpers/sizeNormalizer";
 import I18n from '../../components/helpers/i18n/i18n';
 import {LanguageKeys} from '../../components/helpers/i18n/locales/languageKeys';
-
+import CommonStyles from '../../components/helpers/commonStyle';
+import Styles from "./styles.android";
+import {COLOR} from "../../components/helpers/colorPalette";
 
 export default class ConfigScreen extends Component<{}> {
     constructor(props) {
@@ -12,7 +14,7 @@ export default class ConfigScreen extends Component<{}> {
 
     render() {
         return (
-            <View style={{flex: 1, justifyContent: 'center'}}>
+            <View style={Styles.container}>
                 <TextInput
                     style={{fontSize: normalizeFont(3)}}
                     placeholder={I18n.t(LanguageKeys.StartLevelPlaceholder)}
@@ -24,29 +26,23 @@ export default class ConfigScreen extends Component<{}> {
                     }}
                 />
                 <TouchableHighlight
-                    style={{height: 60, justifyContent: 'center'}}
-                    underlayColor="rgba(0, 0, 0, 0.3)"
+                    style={CommonStyles.buttonView}
+                    underlayColor={COLOR.TOUCHABLE_OPACITY_BUTTON}
                     onPress={() => {
                         this.props.saveConfig()
                     }}
                 >
-                    <Text style={{
-                        textAlign: 'center',
-                        fontSize: normalizeFont(3)
-                    }}>{I18n.t(LanguageKeys.SaveDefaultLevel)}</Text>
+                    <Text style={CommonStyles.buttonText}>{I18n.t(LanguageKeys.SaveDefaultLevel)}</Text>
                 </TouchableHighlight>
 
                 <TouchableHighlight
-                    style={{height: 60, justifyContent: 'center'}}
-                    underlayColor="rgba(0, 0, 0, 0.3)"
+                    style={CommonStyles.buttonView}
+                    underlayColor={COLOR.TOUCHABLE_OPACITY_BUTTON}
                     onPress={() => {
                         this.props.resetConfig()
                     }}
                 >
-                    <Text style={{
-                        textAlign: 'center',
-                        fontSize: normalizeFont(3)
-                    }}>{I18n.t(LanguageKeys.ResetDefaultLevel)}</Text>
+                    <Text style={CommonStyles.buttonText}>{I18n.t(LanguageKeys.ResetDefaultLevel)}</Text>
                 </TouchableHighlight>
             </View>
         )

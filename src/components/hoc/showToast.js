@@ -8,7 +8,6 @@ export default (Comp) => {
     return class ShowToastHOC extends Component<{}> {
         static navigationOptions = {
             header: null,
-
         };
         constructor(props) {
             super(props);

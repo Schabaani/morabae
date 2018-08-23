@@ -33,6 +33,11 @@ class HomeContainer extends Component<{}> {
                 this.props.selectCurrentLevel(value);
                 Actions.BoardScreen();
                 break;
+            case IDENTIFIERS.CancelSelectLevel:
+                this.setState({
+                    modalVisibility: false,
+                });
+                break;
         }
 
     };
@@ -84,5 +89,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
 const IDENTIFIERS = {
     StartGame: "StartGame",
     ChangeConfig: "ChangeConfig",
-    SelectStartLevel: "SelectStartLevel"
+    SelectStartLevel: "SelectStartLevel",
+    CancelSelectLevel: "CancelSelectLevel",
 };
