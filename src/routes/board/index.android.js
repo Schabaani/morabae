@@ -2,8 +2,6 @@
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import React, {Component} from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
-// import TimerMixin from 'react-timer-mixin';
-import {normalize} from '../../components/helpers/sizeNormalizer'
 import Alert from '../../components/alert';
 const {width} = require('Dimensions').get('window');
 import Modal from "react-native-modal";
@@ -11,13 +9,8 @@ import Modal from "react-native-modal";
 export default class BoardScreen extends Component<{}> {
     constructor(props) {
         super(props);
-        this.state = {
-            clickedItems: [],
-            timePassed: 0
-        }
         this.diagonallyMove = 2;
         this.straightMove = 3;
-        this.timer = undefined;
     }
 
     // componentDidMount(){
@@ -28,31 +21,31 @@ export default class BoardScreen extends Component<{}> {
     //     clearInterval(this.timer);
     // }
 
-    tick(){
-        this.setState({timePassed:this.state.timePassed + 1});
-    }
 
     renderBoard = (boardSize) => {
-        let colComponets = []
+        let colComponents = [];
         for(let col=0; col < boardSize; col++){
-            let rowComponets = []
+            let rowComponents = [];
             for(let row=0; row < boardSize; row++){
                 let cell = <Row style={{flex:1, backgroundColor: this.backGroundColor(row,col)}}
                                 size={10}    
                                 key={row}
                             >
                                     <TouchableWithoutFeedback onPress={() => {this.props.selectCell(row,col)}}
-                                    style={{flex:1}}
                                      >
-                                        <Text>{row}{col}</Text>
+                                        <View
+                                            style={{flex:1, borderColor: 'black', borderWidth: 0.5}}
+                                        >
+                                            <Text/>
+                                        </View>
                                     </TouchableWithoutFeedback>
-                            </Row>
-                rowComponets.push(cell)
+                            </Row>;
+                rowComponents.push(cell)
             }
-            let cool = <Col key={col} >{rowComponets}</Col>
-            colComponets.push(cool);
+            let cool = <Col key={col} >{rowComponents}</Col>;
+            colComponents.push(cool);
         }
-        return colComponets;
+        return colComponents;
     };
 
     parser(row, col){
@@ -64,15 +57,15 @@ export default class BoardScreen extends Component<{}> {
     
 
     backGroundColor (row, col) {
-       let gameCells = this.props.gameCells
-        rowCol = parseInt(row + '' + col)
+       let gameCells = this.props.gameCells;
+       let rowCol = parseInt(row + '' + col);
 
-        let color= 'white'
+        let color= 'white';
         if(gameCells.includes(rowCol)){
-            color = 'green'
+            color = 'green';
         }
         if (this.props.selectedItems.includes(rowCol)){
-            color = 'red'
+            color = 'red';
         }
         return color;
     }
@@ -143,7 +136,7 @@ export default class BoardScreen extends Component<{}> {
                 <View style={{flexDirection: 'row', justifyContent:'space-around'}}>
                     <View style={{flexDirection: 'row'}}>
                         <Text>Timer: </Text>
-                        <Text> {this.state.timePassed} seconds</Text>
+                        <Text> {this.props.timePassed} seconds</Text>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                         <Text>Left to click: </Text>
@@ -159,7 +152,7 @@ export default class BoardScreen extends Component<{}> {
                     </View>
                 
                 </View>
-                <Modal isVisible={this.props.modalVisibilty}>
+                <Modal isVisible={this.props.modalVisibility}>
                         <Alert
                         bigTitle={this.props.bigTitle}
                         title={this.props.title}
@@ -179,7 +172,7 @@ export default class BoardScreen extends Component<{}> {
 //                         animationType="slide"
 //                         transparent={true}
 //                         style={{backgroundColor: 'black', opacity: 0.5}}
-//                         visible={this.props.modalVisibilty}
+//                         visible={this.props.modalVisibility}
 //                         >
 //                         <Alert
 //                             bigTitle={this.props.bigTitle}

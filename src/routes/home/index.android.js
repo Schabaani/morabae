@@ -1,8 +1,7 @@
 
 import {View, Text, TouchableHighlight, Picker} from 'react-native';
 import React, {Component} from 'react';
-import {normalize} from '../../components/helpers/sizeNormalizer'
-const {width} = require('Dimensions').get('window');
+import {normalize, normalizeFont} from '../../components/helpers/sizeNormalizer'
 import Modal from "react-native-modal";
 
 export default class HomeScreen extends Component<{}> {
@@ -14,36 +13,40 @@ export default class HomeScreen extends Component<{}> {
         return (
             <View style={{flex:1, justifyContent: 'center'}}>
                     <TouchableHighlight
+                        style={{height:60, justifyContent:'center'}}
+                        underlayColor="rgba(0, 0, 0, 0.3)"
                         onPress={()=>{
                             this.props.onRunCommand(this.props.identifiers.StartGame)
                         }}
                     >
-                        <Text style={{textAlign: 'center'}}>Start game</Text>
+                        <Text style={{textAlign: 'center', fontSize: normalizeFont(3)}}>Start game</Text>
                     </TouchableHighlight>
 
                     <TouchableHighlight
+                        style={{height:60, justifyContent:'center'}}
+                        underlayColor="rgba(0, 0, 0, 0.3)"
                         onPress={()=>{
                             this.props.onRunCommand(this.props.identifiers.ChangeConfig)
                         }}
                     >
-                        <Text style={{textAlign: 'center'}}>Settings</Text>
+                        <Text style={{textAlign: 'center', fontSize: normalizeFont(3)}}>Settings</Text>
                     </TouchableHighlight>
                     <Modal isVisible={this.props.modalVisibility}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', flex:1}}>
                     <View style={
                             {
-                                paddingTop: 10, 
-                                borderRadius: 10, 
-                                width: 300 ,
+                                paddingTop: normalize(10),
+                                borderRadius: normalize(10),
+                                width: normalize(300) ,
                                 height: '50%',
                                 backgroundColor: 'white',
-                                paddingLeft: 20,
+                                paddingLeft: normalize(20),
                             }
                         }
                         >
                         <Picker
                             selectedValue={-1}
-                            style={{ height: 50, width: 200 }}
+                            style={{ height: 50, width: normalize(250) }}
                             mode={'dropdown'}
                             onValueChange={(itemValue, itemIndex) =>{
                                 this.props.onRunCommand(this.props.identifiers.SelectStartLevel, itemValue)

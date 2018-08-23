@@ -3,7 +3,7 @@ export function makeRowAndCol(num){
   if(num < 9){
     num = 0 + '' + num.toString()
   }
-  num = num.toString()
+  num = num.toString();
   return {row: parseInt(num[0]), col: parseInt(num[1])}
 
 }
@@ -16,11 +16,10 @@ export function parser(row, col){
 
 export function generateGameCellsByLevel(level, rowInit, colInit){
   let gameCells = [parseInt(rowInit + '' + colInit)];
-  let moveAreas = findMoveAreas(rowInit, colInit)
-  console.log(moveAreas)
-  for(var i=0; i < level; i++){
+  let moveAreas = findMoveAreas(rowInit, colInit);
+  for(let i=0; i < level; i++){
 
-    isAppended = false;
+    let isAppended = false;
     while(!isAppended){
       const randomNumber = Math.floor(Math.random() * moveAreas.length) ;
       if(!gameCells.includes(moveAreas[randomNumber])){
@@ -37,42 +36,34 @@ export function generateGameCellsByLevel(level, rowInit, colInit){
   return gameCells;
 }
 
-export function findMoveAreas(row, col ){
- let moveAreas = []
+export function findMoveAreas(row, col){
+ let moveAreas = [];
 
  if(parser(row + 3, col)){
-   moveAreas.push(parser(row + 3, col))
-   console.log(1)
+   moveAreas.push(parser(row + 3, col));
  }
  if(parser(row - 3, col)){
-   moveAreas.push(parser(row - 3, col))
-   console.log(2)
+   moveAreas.push(parser(row - 3, col));
  }
  if(parser(row, col + 3)){
-   moveAreas.push(parser(row , col + 3))
-   console.log(3)
+   moveAreas.push(parser(row , col + 3));
  }
  if(parser(row, col - 3)){
-   moveAreas.push(parser(row , col - 3))
-   console.log(4)
+   moveAreas.push(parser(row , col - 3));
  }
  // 
  if(parser(row + 2, col - 2)){
-   moveAreas.push(parser(row +2  , col - 2))
-   console.log(5)
+   moveAreas.push(parser(row +2  , col - 2));
  }
  if(parser(row + 2, col + 2)){
-   moveAreas.push(parser(row + 2  , col + 2))
-   console.log(6)
+   moveAreas.push(parser(row + 2  , col + 2));
  }
  if(parser(row - 2, col + 2)){
-   moveAreas.push(parser(row  - 2  , col + 2))
-   console.log(7)
+   moveAreas.push(parser(row  - 2  , col + 2));
  }
  if(parser(row - 2, col - 2)){
-   moveAreas.push(parser(row - 2  , col - 2))
-   console.log(8)
-   
+   moveAreas.push(parser(row - 2  , col - 2));
+
  }  return moveAreas
 }
 

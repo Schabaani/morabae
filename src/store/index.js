@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage' // default: localStorage if web,
 import reducers from './reducerCombiner' // where reducers is an object of reducers
 
 const config = {
-    key: 'root5',
+    key: 'tradecore',
     storage,
 };
 

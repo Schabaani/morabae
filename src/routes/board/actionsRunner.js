@@ -25,7 +25,7 @@ export function changeLevelDispatcher(level) {
 export function changeLivesDispatcher(lives) {
     return (dispatch) => {
         if(lives === 0){
-            dispatch(changeLevel(1))
+            dispatch(changeLevel(1,1))
         }
         dispatch(changeLives(lives))
     };

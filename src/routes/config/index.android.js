@@ -1,9 +1,6 @@
 
-import {View, Text, Button, TouchableHighlight, TextInput} from 'react-native';
+import {View, Text, TouchableHighlight, TextInput} from 'react-native';
 import React, {Component} from 'react';
-import {normalize} from '../../components/helpers/sizeNormalizer'
-const {width} = require('Dimensions').get('window');
-
 export default class ConfigScreen extends Component<{}> {
     constructor(props) {
         super(props);
@@ -20,6 +17,8 @@ export default class ConfigScreen extends Component<{}> {
                         onChangeText={(value) => {this.props.changeDefaultLevel(value)}}
                     />
                     <TouchableHighlight
+                        style={{height:60, justifyContent:'center'}}
+                        underlayColor="rgba(0, 0, 0, 0.3)"
                         onPress={()=>{
                             this.props.saveConfig()
                         }}
@@ -28,6 +27,8 @@ export default class ConfigScreen extends Component<{}> {
                     </TouchableHighlight>
 
                     <TouchableHighlight
+                        style={{height:60, justifyContent:'center'}}
+                        underlayColor="rgba(0, 0, 0, 0.3)"
                         onPress={()=>{
                             this.props.resetConfig()
                         }}
