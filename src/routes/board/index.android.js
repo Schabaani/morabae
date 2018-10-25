@@ -58,9 +58,6 @@ export default class BoardScreen extends Component<{}> {
     render() {
         return (
             <View style={{flex: 1}}>
-                <Grid style={{flex: 0.5}}>
-                    {this.renderBoard(10)}
-                </Grid>
                 <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
                     <View style={{flexDirection: 'row'}}>
                         <Text>{I18n.t(LanguageKeys.Timer)} </Text>
@@ -80,6 +77,9 @@ export default class BoardScreen extends Component<{}> {
                     </View>
 
                 </View>
+                <Grid style={{flex: 0.5}}>
+                    {this.renderBoard(10)}
+                </Grid>
                 <Modal isVisible={this.props.modalVisibility}>
                     <Alert
                         bigTitle={this.props.bigTitle}
