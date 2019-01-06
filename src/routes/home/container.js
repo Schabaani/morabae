@@ -71,6 +71,9 @@ class HomeContainer extends Component<{}> {
                 this.props.switchCurrentUser(value);
                 this.setState({isSwitchUser: false});
                 break;
+            case IDENTIFIERS.HowToPlay:
+                Actions.HowPlayScreen();
+                break;
         }
 
     };
@@ -134,5 +137,6 @@ const IDENTIFIERS = {
     AddUser: 'AddUser',
     SwitchUser: 'SwitchUser',
     ChangeUserName: 'ChangeUserName',
-    switchCurrentUser: 'switchCurrentUser'
+    switchCurrentUser: 'switchCurrentUser',
+    HowToPlay: 'HowToPlay'
 };

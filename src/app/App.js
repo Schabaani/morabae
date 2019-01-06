@@ -6,6 +6,7 @@ import {PersistGate} from "redux-persist/lib/integration/react";
 import HomeContainer from '../routes/home/container';
 import BoardContainer from '../routes/board/container';
 import ConfigContainer from '../routes/config/container';
+import HowPlayScreen from '../routes/howPlay/container';
 import {View} from 'react-native';
 
 
@@ -40,6 +41,10 @@ export default class App extends Component {
                             <Scene
                                 key="ConfigScreen"
                                 component={ConfigContainer}
+                            />
+                            <Scene
+                                key="HowPlayScreen"
+                                component={HowPlayScreen}
                             />
                         </Scene>
                     </RouterWithRedux>

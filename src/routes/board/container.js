@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import BoardScreen from './index';
 import {changeLevelDispatcher, changeLivesDispatcher} from './actionsRunner';
-import {generateGameCellsByLevel, calculateLives, findMoveAreas, makeRowAndCol} from './operations';
+import {calculateLives, findMoveAreas, makeRowAndCol} from './operations';
 import {clone} from '../../components/helpers/utilities';
 import ShowToastHOC from '../../components/hoc/showToast';
 import {Actions} from 'react-native-router-flux'
 import I18n from '../../components/helpers/i18n/i18n';
 import {LanguageKeys} from '../../components/helpers/i18n/locales/languageKeys';
+import {NativeModules} from 'react-native';
 
 class BoardContainer extends Component<{}> {
     static navigationOptions = {
@@ -66,15 +67,31 @@ class BoardContainer extends Component<{}> {
                 this.resetBoard();
                 break;
             case 'selectInit':
-                const cells = generateGameCellsByLevel(this.props.level, row, col);
-                this.setTimer();
-                this.setState({
-                    gameCells: cells,
-                    selectedItems: [cells[0]],
-                    leftToClick: cells.length - 1,
-                    gameState: 'play',
-                    timePassed: 0,
-                });
+                const boardSize = 10;
+                const variationPoint = 15;
+                const level = parseInt(this.props.level, 10);
+                console.log('cell', row, col);
+                NativeModules.GameboardGenerator.generate({
+                    boardSize,
+                    variationPoint,
+                    startingPoint: {col, row},
+                    level
+                })
+                    .then(solutions => {
+                        const solution = solutions[0];
+                        console.log(solution);
+                       let  cells = solution.path.map((pos)=>{
+                            return parseInt(pos.col + "" + pos.row, 10)
+                        });
+                        this.setTimer();
+                        this.setState({
+                            gameCells: cells,
+                            selectedItems: [parseInt(col + "" + row, 10)],
+                            leftToClick: solution.length - 1,
+                            gameState: 'play',
+                            timePassed: 0,
+                        });
+                    });
                 break;
             case 'play':
                 this.play(row, col);

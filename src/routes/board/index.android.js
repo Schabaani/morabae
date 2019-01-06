@@ -50,7 +50,11 @@ export default class BoardScreen extends Component<{}> {
             color = COLOR.GAME_CELLS;
         }
         if (this.props.selectedItems.includes(rowCol)) {
-            color = COLOR.SELECTED_ITEM;
+            if (this.props.selectedItems.indexOf(rowCol) === this.props.selectedItems.length - 1) {
+                color = COLOR.YELLOW
+            } else {
+                color = COLOR.SELECTED_ITEM;
+            }
         }
         return color;
     }
@@ -77,9 +81,12 @@ export default class BoardScreen extends Component<{}> {
                     </View>
 
                 </View>
-                <Grid style={{flex: 0.5}}>
-                    {this.renderBoard(10)}
-                </Grid>
+                <View style={{flex:1,justifyContent: 'space-around'}}>
+                    <Grid style={{flex: 0.5, alignItems: 'center',}}>
+                        {this.renderBoard(10)}
+                    </Grid>
+
+                </View>
                 <Modal isVisible={this.props.modalVisibility}>
                     <Alert
                         bigTitle={this.props.bigTitle}
@@ -88,7 +95,7 @@ export default class BoardScreen extends Component<{}> {
                         yesCallBack={this.props.yesCallBack}
                     />
                 </Modal>
-
+                <View style={{flex: 0.1, backgroundColor: 'red'}}/>
             </View>
         )
     }

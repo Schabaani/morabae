@@ -8,5 +8,6 @@ export const COLOR = {
     CELL_BORDER: '#8bb8ca',
     TOUCHABLE_OPACITY_BUTTON: 'rgba(0, 0, 0, 0.3)',
     BLACK:'black',
-    WHITE: 'white'
+    WHITE: 'white',
+    YELLOW: 'yellow'
 };

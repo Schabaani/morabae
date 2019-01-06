@@ -15,15 +15,15 @@ export default class HomeScreen extends Component<{}> {
     render() {
         return (
             <View style={Styles.container}>
-                <TouchableHighlight
-                    style={CommonStyles.buttonView}
-                    underlayColor={COLOR.TOUCHABLE_OPACITY_BUTTON}
-                    onPress={() => {
-                        this.props.onRunCommand(this.props.identifiers.SwitchUser)
-                    }}
-                >
-                    <Text style={CommonStyles.buttonText}>Switch User</Text>
-                </TouchableHighlight>
+                {/*<TouchableHighlight*/}
+                    {/*style={CommonStyles.buttonView}*/}
+                    {/*underlayColor={COLOR.TOUCHABLE_OPACITY_BUTTON}*/}
+                    {/*onPress={() => {*/}
+                        {/*this.props.onRunCommand(this.props.identifiers.SwitchUser)*/}
+                    {/*}}*/}
+                {/*>*/}
+                    {/*<Text style={CommonStyles.buttonText}>Switch User</Text>*/}
+                {/*</TouchableHighlight>*/}
 
                 <TouchableHighlight
                     style={CommonStyles.buttonView}
@@ -32,17 +32,17 @@ export default class HomeScreen extends Component<{}> {
                         this.props.onRunCommand(this.props.identifiers.StartGame)
                     }}
                 >
-                    <Text style={CommonStyles.buttonText}>Start game</Text>
+                    <Text style={CommonStyles.buttonText}>شروع بازی</Text>
                 </TouchableHighlight>
 
                 <TouchableHighlight
                     style={CommonStyles.buttonView}
                     underlayColor={COLOR.TOUCHABLE_OPACITY_BUTTON}
                     onPress={() => {
-                        this.props.onRunCommand(this.props.identifiers.ChangeConfig)
+                        this.props.onRunCommand(this.props.identifiers.HowToPlay)
                     }}
                 >
-                    <Text style={CommonStyles.buttonText}>Settings</Text>
+                    <Text style={CommonStyles.buttonText}>قوانین بازی</Text>
                 </TouchableHighlight>
                 <Modal isVisible={this.props.isSwitchUser}>
                     <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
