@@ -69,10 +69,11 @@ export function findMoveAreas(row, col){
 
 export function calculateLives(currentLives, unselectedItemsLength){
     let newLives = 0;
+
     if(unselectedItemsLength === 0){
       newLives = currentLives + 1;
-    } else if (currentLives - unselectedItemsLength > 0) {
-        newLives = currentLives - unselectedItemsLength
+    } else {
+        newLives = currentLives - 1;
     }
     return newLives
 }
