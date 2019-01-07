@@ -1,6 +1,6 @@
 
 export function makeRowAndCol(num){
-  if(num < 9){
+  if(num <= 9){
     num = 0 + '' + num.toString()
   }
   num = num.toString();
