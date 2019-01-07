@@ -61,7 +61,7 @@ class BoardContainer extends Component<{}> {
         });
     }
 
-    selectCell = (row, col) => {
+    selectCell = (col, row) => {
         switch (this.state.gameState) {
             case 'start':
                 this.resetBoard();
@@ -94,7 +94,7 @@ class BoardContainer extends Component<{}> {
                     });
                 break;
             case 'play':
-                this.play(row, col);
+                this.play(col, row);
                 break;
         }
     };
@@ -242,7 +242,6 @@ class BoardContainer extends Component<{}> {
     }
 
     render() {
-        // const bindSelectCell = this.selectCell.bind(this)
         return (
             <BoardScreen
                 gameCells={this.state.gameCells}
