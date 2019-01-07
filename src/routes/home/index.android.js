@@ -44,36 +44,36 @@ export default class HomeScreen extends Component<{}> {
                 >
                     <Text style={CommonStyles.buttonText}>قوانین بازی</Text>
                 </TouchableHighlight>
-                <Modal isVisible={this.props.isSwitchUser}>
-                    <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
-                        <View style={Styles.pickerWrapper}>
-                            <ListView
-                                dataSource={this.props.dataSource}
-                                renderRow={(item) =>
-                                    <View>
-                                        <TouchableHighlight
-                                            onPress={() => {
-                                                this.props.onRunCommand(this.props.identifiers.switchCurrentUser, item.uuid)
-                                            }}>
-                                            <Text>{item.name}</Text>
-                                        </TouchableHighlight>
-                                    </View>
-                                }
-                            />
-                            <TextInput
-                                onChangeText={(text) => {
-                                    this.props.onRunCommand(this.props.identifiers.ChangeUserName, text);
-                                }}
-                            />
-                            <Button
-                                title={'create'}
-                                onPress={() => {
-                                    this.props.onRunCommand(this.props.identifiers.AddUser);
-                                }}
-                            />
-                        </View>
-                    </View>
-                </Modal>
+                {/*<Modal isVisible={this.props.isSwitchUser}>*/}
+                    {/*<View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>*/}
+                        {/*<View style={Styles.pickerWrapper}>*/}
+                            {/*<ListView*/}
+                                {/*dataSource={this.props.dataSource}*/}
+                                {/*renderRow={(item) =>*/}
+                                    {/*<View>*/}
+                                        {/*<TouchableHighlight*/}
+                                            {/*onPress={() => {*/}
+                                                {/*this.props.onRunCommand(this.props.identifiers.switchCurrentUser, item.uuid)*/}
+                                            {/*}}>*/}
+                                            {/*<Text>{item.name}</Text>*/}
+                                        {/*</TouchableHighlight>*/}
+                                    {/*</View>*/}
+                                {/*}*/}
+                            {/*/>*/}
+                            {/*<TextInput*/}
+                                {/*onChangeText={(text) => {*/}
+                                    {/*this.props.onRunCommand(this.props.identifiers.ChangeUserName, text);*/}
+                                {/*}}*/}
+                            {/*/>*/}
+                            {/*<Button*/}
+                                {/*title={'create'}*/}
+                                {/*onPress={() => {*/}
+                                    {/*this.props.onRunCommand(this.props.identifiers.AddUser);*/}
+                                {/*}}*/}
+                            {/*/>*/}
+                        {/*</View>*/}
+                    {/*</View>*/}
+                {/*</Modal>*/}
                 <Modal isVisible={this.props.modalVisibility}
                        onBackButtonPress={() => {
                            this.props.onRunCommand(this.props.identifiers.CancelSelectLevel)
