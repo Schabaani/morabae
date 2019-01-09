@@ -1,3 +1,5 @@
+import {BOARD_SIZE} from "./constants";
+
 export function clone(obj) {
     let copy;
 
@@ -37,4 +39,19 @@ export function clone(obj) {
 
 export function indexOf(row, col) {
     return row * 10 + col;
+}
+export function extractRowCol(number) {
+    return({
+        row: Math.floor(number / BOARD_SIZE),
+        col: number % BOARD_SIZE
+    })
+}
+
+export function parser(row, col) {
+    let index = indexOf(row, col);
+    if (index >= 0 &&
+        index <= (BOARD_SIZE * BOARD_SIZE) - 1) {
+        return index
+    }
+    return undefined
 }

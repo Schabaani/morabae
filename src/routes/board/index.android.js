@@ -6,6 +6,8 @@ import Modal from "react-native-modal";
 import {COLOR} from "../../components/helpers/colorPalette";
 import I18n from '../../components/helpers/i18n/i18n';
 import {LanguageKeys} from '../../components/helpers/i18n/locales/languageKeys';
+import {BOARD_SIZE} from "../../components/helpers/constants";
+import {indexOf} from "../../components/helpers/utilities";
 
 export default class BoardScreen extends Component<{}> {
     constructor(props) {
@@ -42,7 +44,7 @@ export default class BoardScreen extends Component<{}> {
 
     backGroundColor(row, col) {
         let gameCells = this.props.gameCells;
-        let rowCol = parseInt(row + '' + col);
+        let rowCol = indexOf(row, col);
 
         let color = COLOR.WHITE_CELL;
 
@@ -81,13 +83,13 @@ export default class BoardScreen extends Component<{}> {
                     </View>
                     <Button
                         title={'undo'}
-                        onPress={()=>{
-                        this.props.undo();
-                    }} />
+                        onPress={() => {
+                            this.props.undo();
+                        }}/>
                 </View>
                 <View style={{flex: 1, justifyContent: 'space-around'}}>
                     <Grid style={{flex: 0.5, alignItems: 'center',}}>
-                        {this.renderBoard(10)}
+                        {this.renderBoard(BOARD_SIZE)}
                     </Grid>
 
                 </View>

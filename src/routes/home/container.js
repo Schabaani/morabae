@@ -98,7 +98,6 @@ class HomeContainer extends Component<{}> {
 }
 
 const mapStateToProps = (state) => {
-    console.log('users', state.userReducer);
     let levelRanges = [];
     let from = undefined;
     let to = undefined;

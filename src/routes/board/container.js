@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import BoardScreen from './index';
 import {changeLevelDispatcher, changeLivesDispatcher} from './actionsRunner';
-import {calculateLives, findMoveAreas, makeRowAndCol, parser} from './operations';
-import {clone, indexOf} from '../../components/helpers/utilities';
+import {calculateLives, findMoveAreas, makeRowAndCol} from './operations';
+import {clone, indexOf, parser} from '../../components/helpers/utilities';
 import ShowToastHOC from '../../components/hoc/showToast';
 import {Actions} from 'react-native-router-flux'
 import I18n from '../../components/helpers/i18n/i18n';
 import {LanguageKeys} from '../../components/helpers/i18n/locales/languageKeys';
 import {NativeModules} from 'react-native';
+import {BOARD_SIZE, DIAGONALLY_MOVE, STRAIGHT_MOVE, VARIATION_POINT} from "../../components/helpers/constants";
 
 class BoardContainer extends Component<{}> {
     static navigationOptions = {
@@ -31,8 +32,8 @@ class BoardContainer extends Component<{}> {
             leftToClick: 0,
             undo: false
         };
-        this.diagonallyMove = 2;
-        this.straightMove = 3;
+        this.diagonallyMove = DIAGONALLY_MOVE;
+        this.straightMove = STRAIGHT_MOVE;
         this.timer = undefined;
     }
 
@@ -69,25 +70,22 @@ class BoardContainer extends Component<{}> {
                 this.resetBoard();
                 break;
             case 'selectInit':
-                const boardSize = 10;
-                const variationPoint = 15;
                 const level = parseInt(this.props.level, 10);
-                console.log('cell', row, col);
                 NativeModules.GameboardGenerator.generate({
-                    boardSize,
-                    variationPoint,
+                    boardSize:BOARD_SIZE,
+                    variationPoint:VARIATION_POINT,
                     startingPoint: {col, row},
                     level
                 })
                     .then(solutions => {
                         const solution = solutions[0];
                        let  cells = solution.path.map((pos)=>{
-                            return parseInt(pos.col + "" + pos.row, 10)
+                            return indexOf(pos.col ,pos.row)
                         });
                         this.setTimer();
                         this.setState({
                             gameCells: cells,
-                            selectedItems: [parseInt(col + "" + row, 10)],
+                            selectedItems: [indexOf(col, row)],
                             leftToClick: cells.length - 1,
                             gameState: 'play',
                             timePassed: 0,
@@ -102,7 +100,7 @@ class BoardContainer extends Component<{}> {
 
     isInPreviousCellArea = (previousElement, currentRow, currentCol) => {
         let cell = makeRowAndCol(previousElement);
-        return findMoveAreas(cell.row, cell.col).indexOf(parseInt(currentRow + '' + currentCol)) > -1;
+        return findMoveAreas(cell.row, cell.col).indexOf(indexOf(currentRow , currentCol)) > -1;
     };
 
     play(row, col) {
@@ -122,14 +120,14 @@ class BoardContainer extends Component<{}> {
             return;
         }
 
-        const a = parseInt(row + '' + col);
+        const a = indexOf(row ,col);
         if (this.state.gameCells.includes(a)) {
             this.fillBoardNextStep(row, col);
         }
     }
 
     isSelectedBefore = (row, col) => {
-        if (this.state.selectedItems.includes(parseInt(row + '' + col))) {
+        if (this.state.selectedItems.includes(indexOf(row , col))) {
             this.props.showToast(I18n.t(LanguageKeys.SelectedBefore));
             return true;
         }
@@ -154,10 +152,9 @@ class BoardContainer extends Component<{}> {
 
     fillBoardNextStep = (row, col) => {
         let cloneSelectedItems = clone(this.state.selectedItems);
-        cloneSelectedItems.push(parseInt(row + '' + col));
+        cloneSelectedItems.push(indexOf(row, col));
         if (cloneSelectedItems.length === this.props.level + 1) {
             this.winTheLevel();
-            this.setState({undo:false})
         } else {
             this.setState({
                 selectedItems: cloneSelectedItems,
@@ -166,7 +163,6 @@ class BoardContainer extends Component<{}> {
             const can = this.canHaveAnotherMove(row, col);
             if (!can) {
                 this.runGameOver();
-                this.setState({undo:false})
             }
         }
     };
@@ -178,6 +174,7 @@ class BoardContainer extends Component<{}> {
         this.setState({
             gameState: 'complete',
             modalVisibility: true,
+            undo:false,
             bigTitle: `${I18n.t(LanguageKeys.CompleteLevel)}: ${this.props.level}`,
             title: I18n.t(LanguageKeys.DoYouWantPlayNext),
             yesCallBack: () => {
@@ -194,6 +191,7 @@ class BoardContainer extends Component<{}> {
         this.clearTimer();
         this.setState({
             gameState: 'gameOver',
+            undo:false,
             modalVisibility: true,
             bigTitle: I18n.t(LanguageKeys.EndGame),
             title: I18n.t(LanguageKeys.PlayAgain),
