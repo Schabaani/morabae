@@ -14,4 +14,6 @@ export default {
     SaveDefaultLevel: 'ذخیره مرحله پیش فرض',
     ResetDefaultLevel: 'پاک کردن مرحله پیش فرض',
     SelectOneLevel: 'یک مرحله انتخاب کنید',
+    OnlyOneUndo: 'در هر مرحله فقط مجاز به یکبار استفاده از دکمه بازگشت هستید.',
+    WrongPoint: 'نقطه سبز غیرمجاز'
 };

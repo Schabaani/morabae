@@ -23,9 +23,14 @@ export function changeLevelDispatcher(level) {
 }
 
 export function changeLivesDispatcher(lives) {
-    return (dispatch) => {
+    return (dispatch, state) => {
         if (lives === 0) {
-            dispatch(changeLevel(1, 1))
+            let currentLevel = Math.floor(state().boardReducer.currentLevel / 3 ) * 3;
+            if (currentLevel === 0) {
+                dispatch(changeLevel(1, 1))
+            } else {
+                dispatch(changeLevel(currentLevel, currentLevel))
+            }
         }
         dispatch(changeLives(lives))
     };

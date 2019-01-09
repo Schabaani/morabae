@@ -73,8 +73,8 @@ export function calculateLives(currentLives, unselectedItemsLength) {
 
     if (unselectedItemsLength === 0) {
         newLives = currentLives + 1;
-    } else {
-        newLives = currentLives - 1;
+    } else if (currentLives - unselectedItemsLength > 0) {
+        newLives = currentLives - unselectedItemsLength
     }
     return newLives
 }

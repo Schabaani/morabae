@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import BoardScreen from './index';
 import {changeLevelDispatcher, changeLivesDispatcher} from './actionsRunner';
-import {calculateLives, findMoveAreas, makeRowAndCol} from './operations';
-import {clone} from '../../components/helpers/utilities';
+import {calculateLives, findMoveAreas, makeRowAndCol, parser} from './operations';
+import {clone, indexOf} from '../../components/helpers/utilities';
 import ShowToastHOC from '../../components/hoc/showToast';
 import {Actions} from 'react-native-router-flux'
 import I18n from '../../components/helpers/i18n/i18n';
@@ -28,6 +28,8 @@ class BoardContainer extends Component<{}> {
             bigTitle: '',
             title: '',
             timePassed: 0,
+            leftToClick: 0,
+            undo: false
         };
         this.diagonallyMove = 2;
         this.straightMove = 3;
@@ -79,7 +81,6 @@ class BoardContainer extends Component<{}> {
                 })
                     .then(solutions => {
                         const solution = solutions[0];
-                        console.log(solution);
                        let  cells = solution.path.map((pos)=>{
                             return parseInt(pos.col + "" + pos.row, 10)
                         });
@@ -87,7 +88,7 @@ class BoardContainer extends Component<{}> {
                         this.setState({
                             gameCells: cells,
                             selectedItems: [parseInt(col + "" + row, 10)],
-                            leftToClick: solution.length - 1,
+                            leftToClick: cells.length - 1,
                             gameState: 'play',
                             timePassed: 0,
                         });
@@ -105,7 +106,7 @@ class BoardContainer extends Component<{}> {
     };
 
     play(row, col) {
-        if (!this.state.gameCells.includes(parseInt(row + '' + col))) {
+        if (!this.state.gameCells.includes(indexOf(row, col))) {
             this.props.showToast(I18n.t(LanguageKeys.SelectAnotherOne));
             return;
         }
@@ -113,7 +114,11 @@ class BoardContainer extends Component<{}> {
             return;
         }
         if (!this.isInPreviousCellArea(this.state.selectedItems[this.state.selectedItems.length - 1], row, col)) {
-            this.runGameOver();
+            this.props.showToast(I18n.t(LanguageKeys.WrongPoint));
+            this.props.changeLives(this.props.lives - 1);
+            if(this.props.lives - 1 <= 0){
+                this.runGameOver();
+            }
             return;
         }
 
@@ -131,11 +136,28 @@ class BoardContainer extends Component<{}> {
         return false;
     };
 
+    // fillBoardNextStep = (row, col) => {
+    //     this.state.selectedItems.push(indexOf(row, col));
+    //     let nSelectedItems = this.state.nSelectedItems + 1;
+    //     if (nSelectedItems === this.props.level) {
+    //         this.winTheLevel();
+    //     } else {
+    //         this.setState({
+    //             nSelectedItems: nSelectedItems,
+    //             leftToClick: this.state.gameCells.length - nSelectedItems
+    //         });
+    //         if (!this.canHaveAnotherMove(row, col)) {
+    //             this.runGameOver();
+    //         }
+    //     }
+    // };
+
     fillBoardNextStep = (row, col) => {
         let cloneSelectedItems = clone(this.state.selectedItems);
         cloneSelectedItems.push(parseInt(row + '' + col));
         if (cloneSelectedItems.length === this.props.level + 1) {
             this.winTheLevel();
+            this.setState({undo:false})
         } else {
             this.setState({
                 selectedItems: cloneSelectedItems,
@@ -144,9 +166,11 @@ class BoardContainer extends Component<{}> {
             const can = this.canHaveAnotherMove(row, col);
             if (!can) {
                 this.runGameOver();
+                this.setState({undo:false})
             }
         }
     };
+
     winTheLevel = () => {
         this.props.changeLevel(this.props.level + 1);
         this.props.changeLives(calculateLives(this.props.lives, 0));
@@ -197,7 +221,7 @@ class BoardContainer extends Component<{}> {
     isClickable = (row, col) => {
         let gameCell = this.state.gameCells;
         let {selectedItems} = this.state;
-        const parsed = this.parser(row, col);
+        const parsed = parser(row, col);
         if (parsed === undefined) {
             return false;
         }
@@ -205,40 +229,25 @@ class BoardContainer extends Component<{}> {
             && !selectedItems.includes(parsed);
     };
 
-    canHaveAnotherMove(row, col) {
-        let can = false;
-        if (this.isClickable(row + this.straightMove, col)) {
-            can = true;
-        }
-        if (this.isClickable(row - this.straightMove, col)) {
-            can = true;
-        }
-        if (this.isClickable(row, col + this.straightMove)) {
-            can = true;
-        }
-        if (this.isClickable(row, col - this.straightMove)) {
-            can = true;
-        }
-        if (this.isClickable(row + this.diagonallyMove, col - this.diagonallyMove)) {
-            can = true;
-        }
-        if (this.isClickable(row + this.diagonallyMove, col + this.diagonallyMove)) {
-            can = true;
-        }
-        if (this.isClickable(row - this.diagonallyMove, col + this.diagonallyMove)) {
-            can = true;
-        }
-        if (this.isClickable(row - this.diagonallyMove, col - this.diagonallyMove)) {
-            can = true;
-        }
-        return can;
-    }
+    undo = ()=>{
+       if(!this.state.undo && this.state.selectedItems.length > 1 ){
+           this.setState({undo: true, selectedItems:this.state.selectedItems.slice(0, this.state.selectedItems.length - 1)});
+           return;
+       }
+       this.props.showToast(I18n.t(LanguageKeys.OnlyOneUndo));
+    };
 
-    parser(row, col) {
-        if (!isNaN(row + '' + col) && parseInt(row + '' + col) > 0 && parseInt(row + '' + col) < 99) {
-            return parseInt(row + '' + col)
-        }
-        return undefined
+    canHaveAnotherMove(row, col) {
+        return (
+            this.isClickable(row + this.straightMove, col) ||
+            this.isClickable(row - this.straightMove, col) ||
+            this.isClickable(row, col + this.straightMove) ||
+            this.isClickable(row, col - this.straightMove) ||
+            this.isClickable(row + this.diagonallyMove, col - this.diagonallyMove) ||
+            this.isClickable(row + this.diagonallyMove, col + this.diagonallyMove) ||
+            this.isClickable(row - this.diagonallyMove, col + this.diagonallyMove) ||
+            this.isClickable(row - this.diagonallyMove, col - this.diagonallyMove)
+        );
     }
 
     render() {
@@ -257,6 +266,7 @@ class BoardContainer extends Component<{}> {
                 gameState={this.state.gameState}
                 modalVisibility={this.state.modalVisibility}
                 timePassed={this.state.timePassed}
+                undo={this.undo}
             />
         );
 

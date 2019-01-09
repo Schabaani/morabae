@@ -1,4 +1,4 @@
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback, Button} from 'react-native';
 import React, {Component} from 'react';
 import {Col, Row, Grid} from "react-native-easy-grid";
 import Alert from '../../components/alert';
@@ -79,15 +79,22 @@ export default class BoardScreen extends Component<{}> {
                         <Text>{I18n.t(LanguageKeys.Level)} </Text>
                         <Text>{this.props.level}</Text>
                     </View>
-
+                    <Button
+                        title={'undo'}
+                        onPress={()=>{
+                        this.props.undo();
+                    }} />
                 </View>
-                <View style={{flex:1,justifyContent: 'space-around'}}>
+                <View style={{flex: 1, justifyContent: 'space-around'}}>
                     <Grid style={{flex: 0.5, alignItems: 'center',}}>
                         {this.renderBoard(10)}
                     </Grid>
 
                 </View>
-                <Modal isVisible={this.props.modalVisibility}>
+                <Modal isVisible={this.props.modalVisibility} style={{
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                }}>
                     <Alert
                         bigTitle={this.props.bigTitle}
                         title={this.props.title}

@@ -14,4 +14,6 @@ export const LanguageKeys = {
     SaveDefaultLevel: 'SaveDefaultLevel',
     ResetDefaultLevel: 'ResetDefaultLevel',
     SelectOneLevel: 'SelectOneLevel',
+    OnlyOneUndo: 'OnlyOneUndo',
+    WrongPoint: 'WrongPoint'
 };

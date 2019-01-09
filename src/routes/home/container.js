@@ -39,9 +39,11 @@ class HomeContainer extends Component<{}> {
                 Actions.ConfigScreen();
                 break;
             case IDENTIFIERS.StartGame:
-                this.setState({
-                    modalVisibility: true,
-                });
+                this.props.selectCurrentLevel(this.props.levelRanges[this.props.levelRanges.length - 1]);
+                Actions.BoardScreen();
+                // this.setState({
+                //     modalVisibility: true,
+                // });
                 break;
             case IDENTIFIERS.SelectStartLevel:
                 this.setState({

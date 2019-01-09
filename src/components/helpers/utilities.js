@@ -34,3 +34,7 @@ export function clone(obj) {
     }
     throw new Error('Unable to copy object! Its type isn\'t supported');
 }
+
+export function indexOf(row, col) {
+    return row * 10 + col;
+}
