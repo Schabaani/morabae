@@ -10,6 +10,7 @@ import I18n from '../../components/helpers/i18n/i18n';
 import {LanguageKeys} from '../../components/helpers/i18n/locales/languageKeys';
 import {NativeModules} from 'react-native';
 import {BOARD_SIZE, DIAGONALLY_MOVE, STRAIGHT_MOVE, VARIATION_POINT} from "../../components/helpers/constants";
+import {showIntroDispatcher} from "../intro/actionsRunner";
 
 class BoardContainer extends Component<{}> {
     static navigationOptions = {
@@ -63,6 +64,10 @@ class BoardContainer extends Component<{}> {
             modalVisibility: false,
         });
     }
+    help =() =>{
+        this.props.showIntro();
+        Actions.IntroScreen({type:'reset'})
+    };
 
     selectCell = (col, row) => {
         switch (this.state.gameState) {
@@ -160,8 +165,7 @@ class BoardContainer extends Component<{}> {
                 selectedItems: cloneSelectedItems,
                 leftToClick: this.state.gameCells.length - cloneSelectedItems.length
             });
-            const can = this.canHaveAnotherMove(row, col);
-            if (!can) {
+            if (!this.canHaveAnotherMove(row, col)) {
                 this.runGameOver();
             }
         }
@@ -265,6 +269,7 @@ class BoardContainer extends Component<{}> {
                 modalVisibility={this.state.modalVisibility}
                 timePassed={this.state.timePassed}
                 undo={this.undo}
+                help={this.help}
             />
         );
 
@@ -290,6 +295,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         changeLevel: (level) => dispatch(changeLevelDispatcher(level)),
         changeLives: (lives) => dispatch(changeLivesDispatcher(lives)),
+        showIntro: () => dispatch(showIntroDispatcher()),
     };
 };
 

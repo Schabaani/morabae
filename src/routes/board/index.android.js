@@ -65,10 +65,10 @@ export default class BoardScreen extends Component<{}> {
         return (
             <View style={{flex: 1}}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text>{I18n.t(LanguageKeys.Timer)} </Text>
-                        <Text> {this.props.timePassed} seconds</Text>
-                    </View>
+                    {/*<View style={{flexDirection: 'row'}}>*/}
+                        {/*<Text>{I18n.t(LanguageKeys.Timer)} </Text>*/}
+                        {/*<Text> {this.props.timePassed} seconds</Text>*/}
+                    {/*</View>*/}
                     <View style={{flexDirection: 'row'}}>
                         <Text>{I18n.t(LanguageKeys.LeftToClick)} </Text>
                         <Text>{this.props.leftToClick}</Text>
@@ -85,6 +85,11 @@ export default class BoardScreen extends Component<{}> {
                         title={'undo'}
                         onPress={() => {
                             this.props.undo();
+                        }}/>
+                    <Button
+                        title={'guid'}
+                        onPress={() => {
+                            this.props.help();
                         }}/>
                 </View>
                 <View style={{flex: 1, justifyContent: 'space-around'}}>
