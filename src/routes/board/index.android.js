@@ -93,10 +93,7 @@ export default class BoardScreen extends Component<{}> {
                     </Grid>
 
                 </View>
-                <Modal isVisible={this.props.modalVisibility} style={{
-                    alignItems: 'flex-start',
-                    justifyContent: 'flex-start',
-                }}>
+                <Modal isVisible={this.props.modalVisibility}>
                     <Alert
                         bigTitle={this.props.bigTitle}
                         title={this.props.title}
