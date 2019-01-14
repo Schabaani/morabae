@@ -1,4 +1,11 @@
-import {View, Text, TouchableWithoutFeedback, Button} from 'react-native';
+import {
+    View,
+    Text,
+    TouchableWithoutFeedback,
+    Button,
+    Image,
+    Dimensions
+} from 'react-native';
 import React, {Component} from 'react';
 import {Col, Row, Grid} from "react-native-easy-grid";
 import Alert from '../../components/alert';
@@ -14,23 +21,50 @@ export default class BoardScreen extends Component<{}> {
         super(props);
     }
 
+    renderSize = (row, col) => {
+        if (!this.props.gameCells.includes(indexOf(row, col))) {
+            return 0;
+        }
+        if (this.props.selectedItems.includes(indexOf(row, col))) {
+            return 30;
+        }
+        return 25
+
+    };
     renderBoard = (boardSize) => {
         let colComponents = [];
         for (let col = 0; col < boardSize; col++) {
             let rowComponents = [];
             for (let row = 0; row < boardSize; row++) {
-                let cell = <Row style={{flex: 1, backgroundColor: this.backGroundColor(row, col)}}
+                let styles = this.renderBoarders(row, col);
+                let size = this.renderSize(row, col);
+                let cell = <Row style={{
+                    flex: 1,
+                    borderWidth: 0,
+                    borderColor: 'white',
+                    ...styles
+                }}
                                 size={10}
                                 key={row}
                 >
                     <TouchableWithoutFeedback onPress={() => {
                         this.props.selectCell(row, col)
                     }}
+                                              style={{flex: 1}}
                     >
-                        <View
-                            style={{flex: 1, borderColor: COLOR.CELL_BORDER, borderWidth: 0.5}}
-                        >
-                            <Text/>
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                            <View
+                                style={{
+                                    width: size,
+                                    height: size,
+                                    borderColor: COLOR.CELL_BORDER,
+                                    borderRadius: size / 2,
+                                    backgroundColor: this.backGroundColor(row, col),
+                                }}
+                            >
+                                <Text/>
+                            </View>
+
                         </View>
                     </TouchableWithoutFeedback>
                 </Row>;
@@ -61,41 +95,83 @@ export default class BoardScreen extends Component<{}> {
         return color;
     }
 
+    renderBoarders = (row, col) => {
+        let borderSize = 0.5;
+        let style = {
+            borderBottomWidth: borderSize,
+            borderTopWidth: borderSize,
+            borderLeftWidth: borderSize,
+            borderRightWidth: borderSize
+        };
+        if (row === 0) {
+            delete style.borderTopWidth;
+        }
+        if (row === 9) {
+            delete style.borderBottomWidth;
+        }
+        if (col === 0) {
+            delete style.borderLeftWidth;
+        }
+        if (col === 9) {
+            delete style.borderRightWidth;
+        }
+        return style;
+    };
+
+
     render() {
         return (
-            <View style={{flex: 1}}>
-                <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-                    {/*<View style={{flexDirection: 'row'}}>*/}
-                        {/*<Text>{I18n.t(LanguageKeys.Timer)} </Text>*/}
-                        {/*<Text> {this.props.timePassed} seconds</Text>*/}
-                    {/*</View>*/}
-                    <View style={{flexDirection: 'row'}}>
-                        <Text>{I18n.t(LanguageKeys.LeftToClick)} </Text>
-                        <Text>{this.props.leftToClick}</Text>
+            <View style={{flex: 1, backgroundColor: COLOR.BACK_GROUND_COLOR}}>
+                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: 150}}>
+                    <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <Image source={require('../../assets/img/play.png')} style={{width: 30, height: 30}}/>
+                        <Text style={{fontSize: 20}}>{this.props.lives}</Text>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text>{I18n.t(LanguageKeys.Lives)} </Text>
-                        <Text>{this.props.lives}</Text>
+                    <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
+                        <View style={{
+                            width: 70,
+                            height: 70,
+                            borderRadius: 35,
+                            borderColor: 'white',
+                            borderWidth: 2,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{color: 'white'}}>{I18n.t(LanguageKeys.Level)}</Text>
+                            <Text style={{color: 'white'}}>{this.props.level}</Text>
+                        </View>
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text>{I18n.t(LanguageKeys.Level)} </Text>
-                        <Text>{this.props.level}</Text>
+                    <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
+                        <Button
+                            title={'undo'}
+                            onPress={() => {
+                                this.props.undo();
+                            }}/>
+                        <Button
+                            title={'guid'}
+                            onPress={() => {
+                                this.props.help();
+                            }}/>
                     </View>
-                    <Button
-                        title={'undo'}
-                        onPress={() => {
-                            this.props.undo();
-                        }}/>
-                    <Button
-                        title={'guid'}
-                        onPress={() => {
-                            this.props.help();
-                        }}/>
                 </View>
-                <View style={{flex: 1, justifyContent: 'space-around'}}>
-                    <Grid style={{flex: 0.5, alignItems: 'center',}}>
-                        {this.renderBoard(BOARD_SIZE)}
-                    </Grid>
+
+                <View style={{alignItems: 'center'}}>
+                    <View
+                        style={{
+                            height: Dimensions.get('screen').width,
+                            width: Dimensions.get('screen').width,
+                            justifyContent: 'space-around',
+                            padding: 10,
+                            borderColor: 'white',
+                            borderWidth: 2,
+                            borderRadius: 10,
+                            alignItems: 'center'
+                        }}>
+                        <Grid style={{boarderWidth: 0, flex: 1, alignItems: 'center', backgroundColor: 'transparent'}}>
+                            {this.renderBoard(BOARD_SIZE)}
+                        </Grid>
+
+                    </View>
 
                 </View>
                 <Modal isVisible={this.props.modalVisibility}>
@@ -106,7 +182,19 @@ export default class BoardScreen extends Component<{}> {
                         yesCallBack={this.props.yesCallBack}
                     />
                 </Modal>
-                <View style={{flex: 0.1, backgroundColor: 'red'}}/>
+                <View
+                    style={{
+                        flex: 1,
+                        marginTop: 30,
+                        backgroundColor: '#20262F',
+                        padding: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+
+                    }}>
+                    <Image source={require('../../assets/img/coke.png')}
+                           style={{flex: 1, resizeMode: 'stretch', tintColor: '#FC1B51'}}/>
+                </View>
             </View>
         )
     }

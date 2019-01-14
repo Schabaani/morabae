@@ -26,7 +26,7 @@ export default {
     Timer: 'زمان:',
     LeftToClick: 'خانه های باقی مانده:',
     Lives: 'جوون:',
-    Level: 'مرحله:',
+    Level: 'مرحله',
     SetBetween1To99: 'لطفا یک مرحله بین ۱ تا ۹۹ انتخاب کنید.',
     StartLevelPlaceholder: 'مرحله شروع',
     SaveDefaultLevel: 'ذخیره مرحله پیش فرض',
