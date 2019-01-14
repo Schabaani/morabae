@@ -9,7 +9,9 @@ import ConfigContainer from '../routes/config/container';
 import HowPlayScreen from '../routes/howPlay/container';
 import IntroScreen from '../routes/intro/container';
 import {View} from 'react-native';
-
+if(__DEV__) {
+    import('../dev').then(() => console.log('Reactotron Configured'))
+}
 
 const {persistor, store} = configureStore();
 const RouterWithRedux = connect()(Router);
@@ -61,39 +63,3 @@ export default class App extends Component {
         )
     }
 }
-// render() {
-//     if (this.state.showRealApp) {
-//         return <Provider store={store}>
-//             <PersistGate
-//                 loading={<View style={{width: '100%', height: '100%', backgroundColor: 'cyan'}}/>}
-//                 onBeforeLift={onBeforeLift}
-//                 persistor={persistor}>
-//                 <RouterWithRedux>
-//                     <Scene>
-//                         <Scene
-//                             key="HomeScreen"
-//                             component={HomeContainer}
-//
-//                         />
-//                         <Scene
-//                             key="BoardScreen"
-//                             component={BoardContainer}
-//                             initial
-//                         />
-//                         <Scene
-//                             key="ConfigScreen"
-//                             component={ConfigContainer}
-//                         />
-//                         <Scene
-//                             key="HowPlayScreen"
-//                             component={HowPlayScreen}
-//                         />
-//                     </Scene>
-//                 </RouterWithRedux>
-//             </PersistGate>
-//         </Provider>;
-//     } else {
-//         return <AppIntroSlider slides={slides} onDone={this._onDone}/>;
-//     }
-//
-// }
