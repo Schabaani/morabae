@@ -8,14 +8,34 @@ import ShowToastHOC from '../../components/hoc/showToast';
 import {Actions} from 'react-native-router-flux'
 import I18n from '../../components/helpers/i18n/i18n';
 import {LanguageKeys} from '../../components/helpers/i18n/locales/languageKeys';
-import {NativeModules} from 'react-native';
+import {BackHandler, NativeModules} from 'react-native';
 import {BOARD_SIZE, DIAGONALLY_MOVE, STRAIGHT_MOVE, VARIATION_POINT} from "../../components/helpers/constants";
-import {showIntroDispatcher} from "../intro/actionsRunner";
+import {showIntroDispatcher, showRealAppDispatcher} from "../intro/actionsRunner";
 
 class BoardContainer extends Component<{}> {
     static navigationOptions = {
         header: null,
     };
+
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    }
+
+    onBackPress = ()=>{
+        if(Actions.currentScene === 'BoardScreen') {
+            BackHandler.exitApp();
+            return true;
+        } else{
+            this.props.showRealApp();
+            Actions.pop();
+            return false;
+        }
+    };
+
 
     constructor(props) {
         super(props);
@@ -296,6 +316,7 @@ const mapDispatchToProps = (dispatch) => {
         changeLevel: (level) => dispatch(changeLevelDispatcher(level)),
         changeLives: (lives) => dispatch(changeLivesDispatcher(lives)),
         showIntro: () => dispatch(showIntroDispatcher()),
+        showRealApp: () => dispatch(showRealAppDispatcher()),
     };
 };
 

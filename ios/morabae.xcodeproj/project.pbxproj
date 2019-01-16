@@ -40,6 +40,12 @@
 		7FD1C32D60714F57B906BBD8 /* libRNGameboardGenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F8DD2715C4427EB172E647 /* libRNGameboardGenerator.a */; };
 		D55C5B3B5A21476EAE2DD20D /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5D71FA15FF4683B8375EED /* libRNI18n.a */; };
 		10C6AB28D97A470695CD2A1C /* libRNI18n-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2D1C91B30045C28A16C17D /* libRNI18n-tvOS.a */; };
+		2CD91DCD26484FCDA1619663 /* DiodrumArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFBDD658E85D424CA4F9577A /* DiodrumArabic-Bold.ttf */; };
+		4CFD9A8931914AEEAA13A36E /* DiodrumArabic-Extralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4AD8D98407D34C4AA889B91D /* DiodrumArabic-Extralight.ttf */; };
+		B3B4715F04414FAAA3AE5CA0 /* DiodrumArabic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3907B897EBD403F97B45A96 /* DiodrumArabic-Light.ttf */; };
+		9C4B55406B624ECCA8284072 /* DiodrumArabic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A84742E16BA436CB014C94F /* DiodrumArabic-Medium.ttf */; };
+		1899073F421449FDA324E93E /* DiodrumArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7EBA9E39191A45BFB374E583 /* DiodrumArabic-Regular.ttf */; };
+		1369FDCFAB714031B3A81DEE /* DiodrumArabic-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D380D3A48294A3CA0339498 /* DiodrumArabic-Semibold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -350,6 +356,12 @@
 		0F8974B32AFF498E806860F9 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; name = "RNI18n.xcodeproj"; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		3F5D71FA15FF4683B8375EED /* libRNI18n.a */ = {isa = PBXFileReference; name = "libRNI18n.a"; path = "libRNI18n.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		1E2D1C91B30045C28A16C17D /* libRNI18n-tvOS.a */ = {isa = PBXFileReference; name = "libRNI18n-tvOS.a"; path = "libRNI18n-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		CFBDD658E85D424CA4F9577A /* DiodrumArabic-Bold.ttf */ = {isa = PBXFileReference; name = "DiodrumArabic-Bold.ttf"; path = "../assets/fonts/DiodrumArabic-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4AD8D98407D34C4AA889B91D /* DiodrumArabic-Extralight.ttf */ = {isa = PBXFileReference; name = "DiodrumArabic-Extralight.ttf"; path = "../assets/fonts/DiodrumArabic-Extralight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E3907B897EBD403F97B45A96 /* DiodrumArabic-Light.ttf */ = {isa = PBXFileReference; name = "DiodrumArabic-Light.ttf"; path = "../assets/fonts/DiodrumArabic-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1A84742E16BA436CB014C94F /* DiodrumArabic-Medium.ttf */ = {isa = PBXFileReference; name = "DiodrumArabic-Medium.ttf"; path = "../assets/fonts/DiodrumArabic-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7EBA9E39191A45BFB374E583 /* DiodrumArabic-Regular.ttf */ = {isa = PBXFileReference; name = "DiodrumArabic-Regular.ttf"; path = "../assets/fonts/DiodrumArabic-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0D380D3A48294A3CA0339498 /* DiodrumArabic-Semibold.ttf */ = {isa = PBXFileReference; name = "DiodrumArabic-Semibold.ttf"; path = "../assets/fonts/DiodrumArabic-Semibold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,6 +601,7 @@
 				00E356EF1AD99517003FC87E /* morabaeTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				35473306356443EEB72A03F5 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -614,6 +627,20 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		35473306356443EEB72A03F5 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				CFBDD658E85D424CA4F9577A /* DiodrumArabic-Bold.ttf */,
+				4AD8D98407D34C4AA889B91D /* DiodrumArabic-Extralight.ttf */,
+				E3907B897EBD403F97B45A96 /* DiodrumArabic-Light.ttf */,
+				1A84742E16BA436CB014C94F /* DiodrumArabic-Medium.ttf */,
+				7EBA9E39191A45BFB374E583 /* DiodrumArabic-Regular.ttf */,
+				0D380D3A48294A3CA0339498 /* DiodrumArabic-Semibold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1061,6 +1088,12 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				2CD91DCD26484FCDA1619663 /* DiodrumArabic-Bold.ttf in Resources */,
+				4CFD9A8931914AEEAA13A36E /* DiodrumArabic-Extralight.ttf in Resources */,
+				B3B4715F04414FAAA3AE5CA0 /* DiodrumArabic-Light.ttf in Resources */,
+				9C4B55406B624ECCA8284072 /* DiodrumArabic-Medium.ttf in Resources */,
+				1899073F421449FDA324E93E /* DiodrumArabic-Regular.ttf in Resources */,
+				1369FDCFAB714031B3A81DEE /* DiodrumArabic-Semibold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
