@@ -124,8 +124,8 @@ export default class BoardScreen extends Component<{}> {
             <View style={{flex: 1, backgroundColor: COLOR.BACK_GROUND_COLOR}}>
                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: 150}}>
                     <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Image source={require('../../assets/img/play.png')} style={{width: 30, height: 30}}/>
-                        <Text style={{fontSize: 20}}>{this.props.lives}</Text>
+                        <Image source={require('../../assets/img/heart.png')} style={{width: 40, height: 40}}/>
+                        <Text style={{fontSize: 30, color:'white', marginLeft: 5}}>{this.props.lives}</Text>
                     </View>
                     <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
                         <View style={{
@@ -142,16 +142,28 @@ export default class BoardScreen extends Component<{}> {
                         </View>
                     </View>
                     <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
-                        <Button
-                            title={'undo'}
-                            onPress={() => {
-                                this.props.undo();
-                            }}/>
-                        <Button
-                            title={'guid'}
-                            onPress={() => {
-                                this.props.help();
-                            }}/>
+                        <TouchableWithoutFeedback onPress={()=>{
+                            this.props.undo();
+                        }}>
+                            <Image source={require('../../assets/img/undo.png')} style={{width: 40, height: 40}}/>
+                        </TouchableWithoutFeedback>
+
+                        <TouchableWithoutFeedback onPress={()=>{
+                            this.props.help();
+                        }}>
+                            <Image source={require('../../assets/img/guide.png')} style={{width: 40, height: 40}}/>
+                        </TouchableWithoutFeedback>
+
+                        {/*<Button*/}
+                            {/*title={'undo'}*/}
+                            {/*onPress={() => {*/}
+                                {/*this.props.undo();*/}
+                            {/*}}/>*/}
+                        {/*<Button*/}
+                            {/*title={'guid'}*/}
+                            {/*onPress={() => {*/}
+                                {/*this.props.help();*/}
+                            {/*}}/>*/}
                     </View>
                 </View>
 

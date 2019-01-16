@@ -16,8 +16,9 @@ export default {
     SelectOneLevel: 'یک مرحله انتخاب کنید',
     OnlyOneUndo: 'در هر مرحله فقط مجاز به یکبار استفاده از دکمه بازگشت هستید.',
     WrongPoint: 'نقطه سبز غیرمجاز',
-    StartAgain: 'دوباره',
+    StartAgain: 'بزن بریم!',
     GoToNextLevel: 'مرحله بعد',
-    MostLevel: 'بیشترین مرحله'
+    MostLevel: 'بیشترین مرحله',
+    NewRecord: 'رکورد جدید',
 };
 

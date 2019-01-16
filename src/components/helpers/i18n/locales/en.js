@@ -17,7 +17,7 @@ export default {
     OnlyOneUndo: 'در هر مرحله فقط مجاز به یکبار استفاده از دکمه بازگشت هستید.',
     WrongPoint: 'نقطه سبز غیرمجاز',
     NewRecord: 'رکورد جدید',
-    StartAgain: 'دوباره',
+    StartAgain: 'بزن بریم!',
     GoToNextLevel: 'مرحله بعد',
     MostLevel: 'بیشترین مرحله'
 };

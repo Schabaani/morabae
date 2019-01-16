@@ -15,5 +15,9 @@ export const LanguageKeys = {
     ResetDefaultLevel: 'ResetDefaultLevel',
     SelectOneLevel: 'SelectOneLevel',
     OnlyOneUndo: 'OnlyOneUndo',
-    WrongPoint: 'WrongPoint'
+    WrongPoint: 'WrongPoint',
+    NewRecord: 'NewRecord',
+    GoToNextLevel: 'GoToNextLevel',
+    MostLevel: 'MostLevel',
+    StartAgain:'StartAgain'
 };

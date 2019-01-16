@@ -238,11 +238,7 @@ class BoardContainer extends Component<{}> {
     };
 
     exit = () => {
-        this.setState({
-            gameState: 'exit',
-            modalVisibility: false,
-        });
-        Actions.HomeScreen();
+       BackHandler.exitApp();
     };
 
     isClickable = (row, col) => {
