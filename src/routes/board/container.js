@@ -84,9 +84,10 @@ class BoardContainer extends Component<{}> {
             modalVisibility: false,
         });
     }
-    help =() =>{
+
+    help = () => {
         this.props.showIntro();
-        Actions.IntroScreen({type:'reset'})
+        Actions.IntroScreen()
     };
 
     selectCell = (col, row) => {
@@ -97,15 +98,15 @@ class BoardContainer extends Component<{}> {
             case 'selectInit':
                 const level = parseInt(this.props.level, 10);
                 NativeModules.GameboardGenerator.generate({
-                    boardSize:BOARD_SIZE,
-                    variationPoint:VARIATION_POINT,
+                    boardSize: BOARD_SIZE,
+                    variationPoint: VARIATION_POINT,
                     startingPoint: {col, row},
                     level
                 })
                     .then(solutions => {
                         const solution = solutions[0];
-                       let  cells = solution.path.map((pos)=>{
-                            return indexOf(pos.col ,pos.row)
+                        let cells = solution.path.map((pos) => {
+                            return indexOf(pos.col, pos.row)
                         });
                         this.setTimer();
                         this.setState({
@@ -125,7 +126,7 @@ class BoardContainer extends Component<{}> {
 
     isInPreviousCellArea = (previousElement, currentRow, currentCol) => {
         let cell = makeRowAndCol(previousElement);
-        return findMoveAreas(cell.row, cell.col).indexOf(indexOf(currentRow , currentCol)) > -1;
+        return findMoveAreas(cell.row, cell.col).indexOf(indexOf(currentRow, currentCol)) > -1;
     };
 
     play(row, col) {
@@ -139,20 +140,20 @@ class BoardContainer extends Component<{}> {
         if (!this.isInPreviousCellArea(this.state.selectedItems[this.state.selectedItems.length - 1], row, col)) {
             this.props.showToast(I18n.t(LanguageKeys.WrongPoint));
             this.props.changeLives(this.props.lives - 1);
-            if(this.props.lives - 1 <= 0){
+            if (this.props.lives - 1 <= 0) {
                 this.runGameOver();
             }
             return;
         }
 
-        const a = indexOf(row ,col);
+        const a = indexOf(row, col);
         if (this.state.gameCells.includes(a)) {
             this.fillBoardNextStep(row, col);
         }
     }
 
     isSelectedBefore = (row, col) => {
-        if (this.state.selectedItems.includes(indexOf(row , col))) {
+        if (this.state.selectedItems.includes(indexOf(row, col))) {
             this.props.showToast(I18n.t(LanguageKeys.SelectedBefore));
             return true;
         }
@@ -184,10 +185,11 @@ class BoardContainer extends Component<{}> {
             this.setState({
                 selectedItems: cloneSelectedItems,
                 leftToClick: this.state.gameCells.length - cloneSelectedItems.length
+            }, () => {
+                if (!this.canHaveAnotherMove(row, col)) {
+                    this.runGameOver();
+                }
             });
-            if (!this.canHaveAnotherMove(row, col)) {
-                this.runGameOver();
-            }
         }
     };
 
@@ -215,7 +217,7 @@ class BoardContainer extends Component<{}> {
         this.clearTimer();
         this.setState({
             gameState: 'gameOver',
-            undo:false,
+            undo: false,
             modalVisibility: true,
             bigTitle: I18n.t(LanguageKeys.EndGame),
             title: I18n.t(LanguageKeys.PlayAgain),
@@ -251,12 +253,15 @@ class BoardContainer extends Component<{}> {
             && !selectedItems.includes(parsed);
     };
 
-    undo = ()=>{
-       if(!this.state.undo && this.state.selectedItems.length > 1 ){
-           this.setState({undo: true, selectedItems:this.state.selectedItems.slice(0, this.state.selectedItems.length - 1)});
-           return;
-       }
-       this.props.showToast(I18n.t(LanguageKeys.OnlyOneUndo));
+    undo = () => {
+        if (!this.state.undo && this.state.selectedItems.length > 1) {
+            this.setState({
+                undo: true,
+                selectedItems: this.state.selectedItems.slice(0, this.state.selectedItems.length - 1)
+            });
+            return;
+        }
+        this.props.showToast(I18n.t(LanguageKeys.OnlyOneUndo));
     };
 
     canHaveAnotherMove(row, col) {
