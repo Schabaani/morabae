@@ -193,7 +193,7 @@ export default class BoardScreen extends Component<{}> {
 
                     }}>
                     <Image source={require('../../assets/img/coke.png')}
-                           style={{flex: 1, resizeMode: 'stretch', tintColor: '#FC1B51'}}/>
+                           style={{flex: 1, resizeMode: 'stretch'}}/>
                 </View>
             </View>
         )
