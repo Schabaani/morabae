@@ -170,8 +170,8 @@ export default class BoardScreen extends Component<{}> {
                 <View style={{alignItems: 'center'}}>
                     <View
                         style={{
-                            height: Dimensions.get('screen').width,
-                            width: Dimensions.get('screen').width,
+                            height: Dimensions.get('screen').width * 0.95,
+                            width: Dimensions.get('screen').width * 0.95,
                             justifyContent: 'space-around',
                             padding: 10,
                             borderColor: 'white',
