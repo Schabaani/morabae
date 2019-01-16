@@ -1,26 +1,8 @@
-// export default {
-//     EndGame: 'Крај игре',
-//     PlayAgain: 'Да ли желите поново да се играте?',
-//     DoYouWantPlayNext: 'Желите ли играти следећи ниво',
-//     CompleteLevel: 'Завршили сте ниво',
-//     SelectedBefore: 'This cell has selected before',
-//     SelectAnotherOne: 'Ова ћелија је одабрала раније',
-//     Timer: 'Тајмер:',
-//     LeftToClick: 'Лево на клик:',
-//     Lives: 'Живи:',
-//     Level: 'Левел:',
-//     SetBetween1To99: 'Изаберите између 1 до 99',
-//     StartLevelPlaceholder: 'почетни ниво',
-//     SaveDefaultLevel: 'уштедите задани ниво',
-//     ResetDefaultLevel: 'ресетуј подразумевани ниво',
-//     SelectOneLevel: 'изаберите један ниво',
-// };
-
 export default {
     EndGame: 'پایان بازی',
-    PlayAgain: 'آیا مایل به بازی مجدد هستید؟',
-    DoYouWantPlayNext: 'آیا مایل هستید به مرحله بعد بروید؟',
-    CompleteLevel: 'مرحله پایان یافته',
+    PlayAgain: 'متاسفانه باختید. دوباره شروع کنیم؟',
+    DoYouWantPlayNext: 'مرحله بعد',
+    CompleteLevel: ' این مرحله را با موفقیت به پایان رساندید.',
     SelectedBefore: 'این خانه قبلا انتخاب شده است.',
     SelectAnotherOne: 'لطفا یک جای دیگر انتخاب کنید.',
     Timer: 'زمان:',
@@ -33,6 +15,9 @@ export default {
     ResetDefaultLevel: 'پاک کردن مرحله پیش فرض',
     SelectOneLevel: 'یک مرحله انتخاب کنید',
     OnlyOneUndo: 'در هر مرحله فقط مجاز به یکبار استفاده از دکمه بازگشت هستید.',
-    WrongPoint: 'نقطه سبز غیرمجاز'
+    WrongPoint: 'نقطه سبز غیرمجاز',
+    StartAgain: 'دوباره',
+    GoToNextLevel: 'مرحله بعد',
+    MostLevel: 'بیشترین مرحله'
 };
 

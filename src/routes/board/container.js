@@ -46,6 +46,7 @@ class BoardContainer extends Component<{}> {
             gameState: 'selectInit', //  selectInit | play | gameOver | exit | complete
             modalVisibility: false,
             yesCallBack: undefined,
+            yesCallBackText: undefined,
             noCallBack: undefined,
             bigTitle: '',
             title: '',
@@ -200,15 +201,16 @@ class BoardContainer extends Component<{}> {
         this.setState({
             gameState: 'complete',
             modalVisibility: true,
-            undo:false,
-            bigTitle: `${I18n.t(LanguageKeys.CompleteLevel)}: ${this.props.level}`,
-            title: I18n.t(LanguageKeys.DoYouWantPlayNext),
+            undo: false,
+            bigTitle: I18n.t(LanguageKeys.NewRecord),
+            title: I18n.t(LanguageKeys.CompleteLevel),
             yesCallBack: () => {
                 this.continueGame()
             },
             noCallBack: () => {
                 this.exit()
             },
+            yesCallBackText: I18n.t(LanguageKeys.GoToNextLevel),
             timePassed: 0,
         });
     };
@@ -219,7 +221,7 @@ class BoardContainer extends Component<{}> {
             gameState: 'gameOver',
             undo: false,
             modalVisibility: true,
-            bigTitle: I18n.t(LanguageKeys.EndGame),
+            bigTitle: I18n.t(LanguageKeys.MostLevel),
             title: I18n.t(LanguageKeys.PlayAgain),
             yesCallBack: () => {
                 this.resetBoard()
@@ -227,6 +229,7 @@ class BoardContainer extends Component<{}> {
             noCallBack: () => {
                 this.exit()
             },
+            yesCallBackText: I18n.t(LanguageKeys.StartAgain),
         });
     };
 
@@ -289,6 +292,7 @@ class BoardContainer extends Component<{}> {
                 bigTitle={this.state.bigTitle}
                 title={this.state.title}
                 yesCallBack={this.state.yesCallBack}
+                yesCallBackText={this.state.yesCallBackText}
                 noCallBack={this.state.noCallBack}
                 gameState={this.state.gameState}
                 modalVisibility={this.state.modalVisibility}

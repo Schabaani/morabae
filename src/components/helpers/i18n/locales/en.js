@@ -1,8 +1,8 @@
 export default {
     EndGame: 'پایان بازی',
-    PlayAgain: 'آیا مایل به بازی مجدد هستید؟',
+    PlayAgain: 'متاسفانه باختید. دوباره شروع کنیم؟',
     DoYouWantPlayNext: 'آیا مایل هستید به مرحله بعد بروید؟',
-    CompleteLevel: 'مرحله پایان یافته',
+    CompleteLevel: ' این مرحله را با موفقیت به پایان رساندید.',
     SelectedBefore: 'این خانه قبلا انتخاب شده است.',
     SelectAnotherOne: 'لطفا یک جای دیگر انتخاب کنید.',
     Timer: 'زمان:',
@@ -15,5 +15,9 @@ export default {
     ResetDefaultLevel: 'پاک کردن مرحله پیش فرض',
     SelectOneLevel: 'یک مرحله انتخاب کنید',
     OnlyOneUndo: 'در هر مرحله فقط مجاز به یکبار استفاده از دکمه بازگشت هستید.',
-    WrongPoint: 'نقطه سبز غیرمجاز'
+    WrongPoint: 'نقطه سبز غیرمجاز',
+    NewRecord: 'رکورد جدید',
+    StartAgain: 'دوباره',
+    GoToNextLevel: 'مرحله بعد',
+    MostLevel: 'بیشترین مرحله'
 };

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableWithoutFeedback} from 'react-native';
 import {COLOR} from "./helpers/colorPalette";
 import {normalizeFont, normalize} from "./helpers/sizeNormalizer";
 
@@ -12,29 +12,98 @@ export default class Alert extends Component<{}> {
     render() {
         return (
             <View style={Styles.container}>
-                <View style={Styles.messageWrapper}>
-                    <Text style={Styles.bigTitle}>{this.props.bigTitle}</Text>
-                    <Text>{this.props.title}</Text>
-                    <View style={Styles.buttonWrapper}>
-                        <TouchableHighlight
+                <View
+                    style={{
+                        width: 100,
+                        height: 60,
+                        backgroundColor: '#C9B091',
+                        position: 'relative',
+                        borderRadius: 20,
+                        borderColor: 'gray',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        borderWidth: 5,
+                        top: 50
+                    }}><Text>{this.props.bigTitle}</Text></View>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 180,
+                    height: 70,
+                    backgroundColor: '#333333',
+                    position: 'relative',
+                    borderRadius: 20,
+                    borderColor: '#919191',
+                    borderWidth: 5,
+                    top: 25,
+                    zIndex: 5
+                }}>
+                    <Image source={require('../assets/img/star.png')} style={{width: 50, height: 50}}/>
+                    <Text style={{
+                        fontSize: 40,
+                        color: 'white',
+                        fontFamily: 'DiodrumArabic-Semibold'
+                    }}> {this.props.level} </Text>
+                </View>
+                <View style={{
+                    width: '100%',
+                    height: 140,
+                    backgroundColor: '#C93527',
+                    borderRadius: 40,
+                    borderColor: '#919191',
+                    borderWidth: 5
+                }}>
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                        position: 'relative',
+                        top: -20,
+                        left: -20,
+                    }}>
+                        <TouchableWithoutFeedback
                             onPress={() => {
-                                this.props.noCallBack();
+                                this.props.noCallBack()
                             }}
-                            style={Styles.buttonView}
-                        >
-                            <Text style={Styles.buttonText}>No</Text>
-                        </TouchableHighlight>
 
-                        <TouchableHighlight
-                            onPress={() => {
-                                this.props.yesCallBack()
-                            }}
-                            style={Styles.buttonView}
                         >
-                            <Text style={Styles.buttonText}>Yes</Text>
-                        </TouchableHighlight>
+                            <View style={{
+                                width: 30, height: 30,
+                                borderRadius: 15,
+                                backgroundColor: 'white',
+                                justifyContent: 'center', alignItems: 'center',
+                            }}
+                            >
+
+                                <Image source={require('../assets/img/cancel.png')} style={{width: 10, height: 10}}/>
+
+                            </View>
+                        </TouchableWithoutFeedback>
 
                     </View>
+                    <Text style={{
+                        textAlign: 'center',
+                        fontSize: 25,
+                        color: 'white',
+                        fontFamily: 'DiodrumArabic-Light'
+                    }}>{this.props.title}</Text>
+                </View>
+                <View style={{
+                    width: 100,
+                    height: 60,
+                    backgroundColor: '#DF7C06',
+                    position: 'relative',
+                    borderRadius: 20,
+                    borderColor: 'gray',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderWidth: 5,
+                    top: -25,
+                    zIndex: 1,
+                }}>
+                    <Text onPress={() => {
+                        this.props.yesCallBack()
+                    }}>{this.props.yesCallBackText}</Text>
                 </View>
             </View>
         );

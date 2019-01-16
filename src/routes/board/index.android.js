@@ -180,6 +180,8 @@ export default class BoardScreen extends Component<{}> {
                         title={this.props.title}
                         noCallBack={this.props.noCallBack}
                         yesCallBack={this.props.yesCallBack}
+                        yesCallBackText={this.props.yesCallBackText}
+                        level={this.props.level}
                     />
                 </Modal>
                 <View
