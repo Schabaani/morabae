@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import BoardScreen from './index';
 import {changeLevelDispatcher, changeLivesDispatcher} from './actionsRunner';
 import {calculateLives, findMoveAreas, makeRowAndCol} from './operations';
-import {clone, indexOf, parser} from '../../components/helpers/utilities';
+import {clone, indexOf, legalMove} from '../../components/helpers/utilities';
 import ShowToastHOC from '../../components/hoc/showToast';
 import {Actions} from 'react-native-router-flux'
 import I18n from '../../components/helpers/i18n/i18n';
@@ -244,7 +244,7 @@ class BoardContainer extends Component<{}> {
     isClickable = (row, col) => {
         let gameCell = this.state.gameCells;
         let {selectedItems} = this.state;
-        const parsed = parser(row, col);
+        const parsed = legalMove(row, col);
         if (parsed === undefined) {
             return false;
         }

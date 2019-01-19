@@ -40,14 +40,18 @@ export function clone(obj) {
 export function indexOf(row, col) {
     return row * 10 + col;
 }
+
 export function extractRowCol(number) {
-    return({
+    return ({
         row: Math.floor(number / BOARD_SIZE),
         col: number % BOARD_SIZE
     })
 }
 
-export function parser(row, col) {
+export function legalMove(row, col) {
+    if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE) {
+        return undefined
+    }
     let index = indexOf(row, col);
     if (index >= 0 &&
         index <= (BOARD_SIZE * BOARD_SIZE) - 1) {
