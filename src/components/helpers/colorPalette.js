@@ -10,5 +10,6 @@ export const COLOR = {
     BLACK: '#5f5f5f',
     WHITE: 'white',
     YELLOW: 'yellow',
-    BACK_GROUND_COLOR: '#272B33'
+    BACK_GROUND_COLOR: '#272B33',
+    AJORY: '#C93527',
 };

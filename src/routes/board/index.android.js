@@ -125,7 +125,12 @@ export default class BoardScreen extends Component<{}> {
                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: 150}}>
                     <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <Image source={require('../../assets/img/heart.png')} style={{width: 40, height: 40}}/>
-                        <Text style={{fontSize: 30, color:'white', marginLeft: 5}}>{this.props.lives}</Text>
+                        <Text style={{
+                            fontSize: 30,
+                            color: 'white',
+                            marginLeft: 5,
+                            fontFamily: 'DiodrumArabic-Medium'
+                        }}>{this.props.lives}</Text>
                     </View>
                     <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
                         <View style={{
@@ -137,33 +142,25 @@ export default class BoardScreen extends Component<{}> {
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
-                            <Text style={{color: 'white'}}>{I18n.t(LanguageKeys.Level)}</Text>
-                            <Text style={{color: 'white'}}>{this.props.level}</Text>
+                            <Text style={{
+                                color: 'white',
+                                fontFamily: 'DiodrumArabic-Bold'
+                            }}>{I18n.t(LanguageKeys.Level)}</Text>
+                            <Text style={{color: 'white', fontFamily: 'DiodrumArabic-Bold'}}>{this.props.level}</Text>
                         </View>
                     </View>
                     <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
-                        <TouchableWithoutFeedback onPress={()=>{
+                        <TouchableWithoutFeedback onPress={() => {
                             this.props.undo();
                         }}>
                             <Image source={require('../../assets/img/undo.png')} style={{width: 40, height: 40}}/>
                         </TouchableWithoutFeedback>
 
-                        <TouchableWithoutFeedback onPress={()=>{
+                        <TouchableWithoutFeedback onPress={() => {
                             this.props.help();
                         }}>
                             <Image source={require('../../assets/img/guide.png')} style={{width: 40, height: 40}}/>
                         </TouchableWithoutFeedback>
-
-                        {/*<Button*/}
-                            {/*title={'undo'}*/}
-                            {/*onPress={() => {*/}
-                                {/*this.props.undo();*/}
-                            {/*}}/>*/}
-                        {/*<Button*/}
-                            {/*title={'guid'}*/}
-                            {/*onPress={() => {*/}
-                                {/*this.props.help();*/}
-                            {/*}}/>*/}
                     </View>
                 </View>
 
@@ -207,7 +204,7 @@ export default class BoardScreen extends Component<{}> {
 
                     }}>
                     {/*<Image source={require('../../assets/img/coke.png')}*/}
-                           {/*style={{flex: 1, resizeMode: 'stretch'}}/>*/}
+                    {/*style={{flex: 1, resizeMode: 'stretch'}}/>*/}
                 </View>
             </View>
         )

@@ -24,7 +24,7 @@ export default class Alert extends Component<{}> {
                         alignItems: 'center',
                         borderWidth: 5,
                         top: 50
-                    }}><Text>{this.props.bigTitle}</Text></View>
+                    }}><Text style={{fontFamily: 'DiodrumArabic-Bold'}}>{this.props.bigTitle}</Text></View>
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'center',
@@ -49,7 +49,7 @@ export default class Alert extends Component<{}> {
                 <View style={{
                     width: '100%',
                     height: 140,
-                    backgroundColor: '#C93527',
+                    backgroundColor: COLOR.AJORY,
                     borderRadius: 40,
                     borderColor: '#919191',
                     borderWidth: 5
@@ -88,23 +88,28 @@ export default class Alert extends Component<{}> {
                         fontFamily: 'DiodrumArabic-Light'
                     }}>{this.props.title}</Text>
                 </View>
-                <View style={{
-                    width: 100,
-                    height: 60,
-                    backgroundColor: '#DF7C06',
-                    position: 'relative',
-                    borderRadius: 20,
-                    borderColor: 'gray',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderWidth: 5,
-                    top: -25,
-                    zIndex: 1,
-                }}>
-                    <Text onPress={() => {
+                <TouchableWithoutFeedback
+                    onPress={() => {
                         this.props.yesCallBack()
-                    }}>{this.props.yesCallBackText}</Text>
-                </View>
+                    }}
+                >
+                    <View style={{
+                        width: 100,
+                        height: 60,
+                        backgroundColor: '#DF7C06',
+                        position: 'relative',
+                        borderRadius: 20,
+                        borderColor: 'gray',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderWidth: 5,
+                        top: -25,
+                        zIndex: 1,
+                    }}>
+
+                        <Text style={{fontFamily: 'DiodrumArabic-Bold'}}>{this.props.yesCallBackText}</Text>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         );
     }

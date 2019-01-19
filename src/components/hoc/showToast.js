@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import Toast, {DURATION} from 'react-native-easy-toast'
+import {COLOR} from "../helpers/colorPalette";
 
 
 export default (Comp) => {
@@ -9,11 +10,12 @@ export default (Comp) => {
         static navigationOptions = {
             header: null,
         };
+
         constructor(props) {
             super(props);
         }
 
-        showToast = (message, duration = DURATION.LENGTH_LONG * 2 ) => {
+        showToast = (message, duration = DURATION.LENGTH_SHORT * 2) => {
             this.refs.toast.show(message, duration);
         };
 
@@ -25,7 +27,9 @@ export default (Comp) => {
                     <Comp {...props} showToast={this.showToast}>
                         {children}
                     </Comp>
-                    <Toast ref="toast"/>
+                    <Toast style={{backgroundColor: COLOR.BACK_GROUND_COLOR}}
+                           textStyle={{color: COLOR.WHITE, fontSize: 13, fontFamily: 'DiodrumArabic-Bold'}}
+                           ref="toast"/>
                 </View>
             )
         }
