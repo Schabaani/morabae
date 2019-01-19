@@ -1,40 +1,8 @@
 import React, {Component} from 'react';
 import AppIntroSlider from "react-native-app-intro-slider";
-import {StyleSheet} from "react-native";
+import {StyleSheet, View, Text} from "react-native";
+import {COLOR} from "../../components/helpers/colorPalette";
 
-const styles = StyleSheet.create({
-    image: {
-        width: 320,
-        height: 320,
-    }
-});
-
-const slides = [
-    {
-        key: 'somethun',
-        title: 'قواعد حرکتی',
-        text: 'Description.\nSay something cool',
-        image: require('../../assets/img/play.png'),
-        imageStyle: styles.image,
-        backgroundColor: '#59b2ab',
-    },
-    {
-        key: 'somethun-dos',
-        title: 'محاسبه امتیاز',
-        text: 'Other cool stuff',
-        image: require('../../assets/img/play.png'),
-        imageStyle: styles.image,
-        backgroundColor: '#febe29',
-    },
-    {
-        key: 'somethun1',
-        title: 'کسر جان',
-        text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-        image: require('../../assets/img/play.png'),
-        imageStyle: styles.image,
-        backgroundColor: '#22bcb5',
-    }
-];
 
 export default class ConfigScreen extends Component<{}> {
     constructor(props) {
@@ -44,14 +12,34 @@ export default class ConfigScreen extends Component<{}> {
 
     render() {
         return (
-            <AppIntroSlider slides={slides}
-                            onDone={this.props.onDone}
-                            // onSkip={this.props.onSkip}
-                            doneLabel={'برو تو بازی'}
-                            nextLabel={'بعدی'}
-                            skipLabel={'بی حیال'}
-                            showSkipButton={true}
-            />
+            <View style={{flex: 1, backgroundColor: COLOR.BACK_GROUND_COLOR, }}>
+                <AppIntroSlider slides={this.props.slides}
+                                onDone={this.props.onDone}
+                                doneLabel={'برو تو بازی'}
+                                nextLabel={'بعدی'}
+                                prevLabel={'قبلی'}
+                                showPrevButton={true}
+                                onSlideChange={this.props.onSlideChange}
+                                style={{flex:0.5}}
+                />
+                {this.props.showSkip &&
+                <Text onPress={() => {
+                    this.props.onDone()
+                }}
+                      style={{
+                          textAlign: 'center',
+                          color: COLOR.SELECTED_ITEM,
+                          position: 'absolute',
+                          bottom: 10,
+                          left: '40%',
+                          fontSize: 20
+                      }}
+                >
+                    برو تو بازی
+                </Text>
+
+                }
+            </View>
         )
     }
 
