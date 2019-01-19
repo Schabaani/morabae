@@ -1,4 +1,4 @@
-# trade-game-core
+# Morabae
 A simple game
 
 This repo is based on [redux-boiler-structure](https://github.com/Schabaani/redux-boiler-structure) and using:
