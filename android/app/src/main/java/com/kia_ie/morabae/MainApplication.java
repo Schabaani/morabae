@@ -1,4 +1,4 @@
-package com.morabae;
+package com.kia_ie.morabae;
 
 import android.app.Application;
 
