@@ -101,8 +101,8 @@ android {
         applicationId "com.kia_ie.morabae"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.1"
 //        ndk {
 //            abiFilters "armeabi-v7a", "x86"
 //        }
@@ -148,6 +148,10 @@ android {
 }
 
 dependencies {
+    compile 'com.facebook.fresco:fresco:1.+'
+    // For animated GIF support
+    compile 'com.facebook.fresco:animated-gif:1.+'
+
     compile project(':react-native-i18n')
     compile project(':react-native-gameboard-generator')
     implementation fileTree(dir: "libs", include: ["*.jar"])

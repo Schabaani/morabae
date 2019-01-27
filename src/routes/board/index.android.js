@@ -203,8 +203,8 @@ export default class BoardScreen extends Component<{}> {
                         alignItems: 'center',
 
                     }}>
-                    {/*<Image source={require('../../assets/img/coke.png')}*/}
-                    {/*style={{flex: 1, resizeMode: 'stretch'}}/>*/}
+                    <Image source={require('../../assets/img/ads.gif')}
+                    style={{flex: 1, resizeMode: 'stretch'}}/>
                 </View>
             </View>
         )
